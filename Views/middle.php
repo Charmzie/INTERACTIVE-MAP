@@ -181,6 +181,9 @@
         <div class="OverlayM"></div>
         <h1 class = "MidTextUpper"> Colegio De Muntinlupa Buildings </h1>
         <h4 class = "MidTextLower"> A state-of-the-art facility designed to support diverse academic and administrative needs </h4>
+        <a href = "Views/Interactive_Map.php">
+            <button class = "ReadM_Stud"> View More </button>
+        </a>   
     </div>
 
     <!-- Left & Right Images -->
@@ -190,7 +193,7 @@
             <div class="OverlayL"></div>
             <h1 class = "LeftTextUpper"> Enrolled Students per Program </h1>
             <h4 class = "LeftTextLower"> Comprehensive tracking of student enrollment across all academic programs </h4>
-            <a href = "student_info.php">
+            <a href = "Views/student_info.php">
              <button class = "ReadM_Stud"> View More </button>
             </a>
         </div>
@@ -200,6 +203,9 @@
             <div class="OverlayR"></div>
             <h1 class = "RightTextUpper"> Room Assignment </h1>
             <h4 class = "RightTextLower"> Efficient allocation of classrooms based on schedules and capacity requirements </h4> 
+            <a href = "Views/Room_Assignment.php">
+                <button class = "ReadM_Stud"> View More </button>
+            </a>
         </div>
     </div>
 </div>

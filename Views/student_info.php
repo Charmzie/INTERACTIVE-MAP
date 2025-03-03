@@ -1,118 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Info</title>
-</head>
-<style>
+<div class="Table-Container">
+    <table class="Main_Table">
+        <thead>
+            <tr>
+                <th>Program Description</th>
+                <th>Program ID</th>
+                <th>Number of Students</th>
+                <th>Academic Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                // Connect to MySQL database
+                $conn = new mysqli("localhost", "", "", "Number_of_Students");
 
-    .body{
-        margin:0px;
-        width:100vw;
-        height:150vh; 
-        overflow-y: auto;
-        overflow-x:auto; 
-    }
+                // Check connection
+                if ($conn->connect_error) {
+                    die("Connection Failed: " . $conn->connect_error);
+                }
 
-    .UpNav{
-        position:fixed;
-        width:100vw;
-        height:10vh;
-        background-color: rgba(4, 30, 39);
-        object-fit:cover;
-        z-index:1;
-        top:0px;
-        left:0px;
-        
+                // Corrected SQL query (use backticks for column names with spaces)
+                $sql = "SELECT `Program Description`, `Program ID`, `Number of Students`, `Academic Year` FROM `Student_Info_2024_2025`";
+                $result = $conn->query($sql); // Assign the query result to $result
 
-    }
-    .SideNav{
-        position:fixed;
-        width: 25vw;
-        height:100vh;
-        background-color: rgba(4, 30, 39);
-        object-fit:cover;
-        z-index:1;
-        top:0px;
-        left:0px;
-        justify-content:center; 
+                // Check if query returned rows
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>
+                                <td>" . $row["Program Description"] . "</td>
+                                <td>" . $row["Program ID"] . "</td>
+                                <td>" . $row["Number of Students"] . "</td>
+                                <td>" . $row["Academic Year"] . "</td>
+                              </tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='4'>No results found</td></tr>";
+                }
 
-    }
-
-    .CDMLogo{
-        position: relative;
-        width: 200px;
-        height: 200px;
-        top:100px;
-        left: 50px;
-    }
-
-    .CdM{
-        color:white;
-        top: 70px;
-        position: relative;
-        font-size:30px;
-        font-weight: 10px;
-        letter-spacing: 2px;
-        text-align:center;
-    }
-
-    .AdminPort{
-        color:white;
-        top: 60px;
-        position: relative;
-        font-size:20px;
-        font-weight: 10px;
-        letter-spacing: 2px;
-        text-align:center;
-    }
-
-    .MainMenu{
-        color:white;
-        top: 60px;
-        position: relative;
-        font-size:15px;
-        font-weight: 10px;
-        letter-spacing: 2px;
-        text-align:center;
-    }
-
-    .Dash, .Acc {
-        color: white;
-        position: relative;
-        font-size: 15px;
-        font-weight: 200; /* Lighter text */
-        letter-spacing: 2px;
-        text-align: center;
-        text-decoration: none;
-        }
-
-    .MainMenu { top: 100px; }
-    .Dash { top: 130px; }
-    .Acc { top: 160px; }
-
-
-   .SideNav a:hover {
-        color:blue;
-        }
-
-
- 
-</style>
-<body>
-<div class = "UpNav" >
-    <div class = "SideNav">
-        <img class = "CDMLogo" src = "resources/CDM-Logo.png" type = "png"> 
-        <h1 class = "CdM"> COLEGIO DE MUNTINLUPA </h1> 
-        <h3 class = "AdminPort"> ADMIN PORTAL </h3>
-        <a href = "#MainMenu" class = "MainMenu"> Main Menu </h4>  
-        <a href = "#Dashboard" class = "Dash"> DashBoard </a>
-        <a href = "#MyAccount" class = "Acc"> My Acount </a>
-    </div>
-
-    <p> ahdjkahdjkahdkjashdkahdkahdkjasd </p>
+                // Close connection
+                $conn->close();
+            ?>
+        </tbody>
+    </table>
 </div>
-
-</body>
-</html>
