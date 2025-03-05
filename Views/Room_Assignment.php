@@ -163,7 +163,7 @@
     <div class="UpNav"></div>
 
     <div class="SideNav">
-        <img src="resources/CDM-Logo.png" alt="CDM Logo">
+        <img src="../resources/CDM-Logo.png" alt="CDM Logo">
         <h1 class="CdM">COLEGIO DE MUNTINLUPA</h1>
         <h3 class="AdminPort">ADMIN PORTAL</h3>
         <a href="#Dashboard" class="Dash">Dashboard</a>

@@ -45,7 +45,6 @@
 /* Middle Image Text */
 .MidTextUpper, .MidTextLower {
     position: absolute;
-    color: white;
     text-align: center;
     z-index: 2;
     width: 90%;
@@ -62,6 +61,7 @@
     top: 50%;
     font-size: 22px;
     max-width: 80%;
+    color: white;
 }
 
 /* Left & Right Images */

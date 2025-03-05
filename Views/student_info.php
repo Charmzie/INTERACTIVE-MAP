@@ -12,28 +12,21 @@
     justify-content: center;
     align-items:Left;
 }
-
-.text{
-    font-size: 60px;
-    font-weight:20px;
-    letter-spacing:3px;
-    top:50px;
-}
-/* Middle Image + Overlay */
 .Middle_Container {
     position: relative;
-    top:80px;
+    top:60px;
     width: 18vw;
     height: 25vh;
     display: flex;
     justify-content: center;N
     align-items: center;
     box-shadow: 14px 8px 16px 1px rgba(0, 117, 196);
+    border-radius: 10px;
 }
 
 .Middle_Container1 {
     position: relative;
-    top:-98px;
+    top:-118px;
     left:260px;
     width: 18vw;
     height: 25vh;
@@ -41,28 +34,33 @@
     justify-content: center;
     align-items: center;
     box-shadow: 14px 8px 16px 1px rgba(0, 117, 196);
+    border-radius: 10px;
 }
 
 .Middle_Container2 {
     position: relative;
-    top:-277px;
+    top:-296px;
     left:520px;
     width: 18vw;
     height: 25vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 14px 8px 16px 1px rgba(0, 117, 196);
+    border-radius: 10px;
 }
 
 .Middle_Container3 {
     position: relative;
-    top:-456px;
+    top:-476px;
     left:780px;
     width: 18vw;
     height: 25vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 14px 8px 16px 1px rgba(0, 117, 196);
+    border-radius: 10px;
 }
 
 .Middle_Container4 {
@@ -73,6 +71,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 14px 8px 16px 1px rgba(0, 117, 196);
+    border-radius: 10px;
 }
 
 .Middle_Container5 {
@@ -84,6 +84,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 14px 8px 16px 1px rgba(0, 117, 196);
+    border-radius: 10px;
 }
 
 .Middle_Container6 {
@@ -95,7 +97,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 14px 8px 16px 1px rgba(0, 117, 196);
+    border-radius: 10px;
 }
+
 
 .Middle_Pic {
     width: 100%;
@@ -152,7 +157,6 @@
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    box-shadow: 14px 8px 16px 1px rgba(0, 117, 196);
     z-index:2;
 }
 
@@ -168,6 +172,45 @@
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+.text_{
+    position: absolute;
+    font-size: 70px;
+    font-weight:20px;
+    letter-spacing:5px;
+    left: 220px;
+    top:-20px;
+    animation:slideInLeft 3.5s ease-out;
+    position:relative;
+    animation:slideInLeft 3.5s ease-out;
+    justify-content: center;
+    align-items: center;
+}
+
+.Hori{
+    position:relative;
+    top: -20px;
+    width:90%;
+    weight: 2px;
+    height: 3px;
+    background-color: black;
+}
+
+
+
+@keyframes slideInLeft {
+            0% { transform: translateX(-100px); opacity: 0; }
+             100% { transform: translateX(0); opacity: 1; }
+        }
+
+@font-face {
+            src: url(fonts/arialroundedmtbold.ttf);
+            font-family: Arial-Rounded-Mt-Bold;
+        }
+
+@font-face {
+            src: url(fonts/Poppins-Bold.ttf);
+            font-family: Poppins-Bold;
+        }
     </style>
 </head>
 <body>
@@ -175,8 +218,11 @@
         include '../Views/side1.php';
         ?>
 <div class="Middle">
-    <!-- Middle Image -->
-    <h1 class = "text"> Colegio de Muntinlupa's Student Population </h1>
+    
+<div class = "text">
+        <h1 class = "text_"> Student Profile </h1>
+        <hr class = "Hori">
+ </div>
     <div class="Middle_Container">
         <img src="../resources/Middle_Pic.png" class="Middle_Pic" alt="Middle Image">
         <div class="OverlayM"></div>

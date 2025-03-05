@@ -37,19 +37,19 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, white 10%, transparent 20%);
+            background: radial-gradient(circle, white 6%, transparent 20%);
             background-size: 3px 3px; /* Adjust size of dots */
             pointer-events: none; /* Allows interaction with the video */
         }
 
         .rectangle {
             position: absolute;
-            top: 65%; /* Adjust to move up/down */
-            right: -40%;
+            top: 75%; /* Adjust to move up/down */
+            right: -33%;
             transform: translate(-50%, -50%);
-            width: 900px; /* Adjust rectangle size */
+            width: 810px; /* Adjust rectangle size */
             height: 200px;
-            background: rgba(0, 0, 255, 0.651); /* Semi-transparent blue */
+            background: rgba(0, 145, 255, 0.63); /* Semi-transparent blue */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -67,6 +67,7 @@
             margin: 3px;
             font-weight: bold;
             font-family:'Montserrat';
+            color:white;
             animation:slideInLeft 3s ease-out;
         }
 
@@ -78,6 +79,7 @@
             margin:3px;
             font-weight: bold;
             font-family:'Montserrat';
+            color:white;
             animation:slideInLeft 3s ease-out;
         }
 
@@ -112,7 +114,7 @@
         </video>
 
         <div class = "rectangle">
-                <h1 class = "CDM"> <b> COLEGIO DE MUNTINLUPA: </b> </h1>
+                <h1 class = "CDM"> <b> COLEGIO DE MUNTINLUPA </b> </h1>
                 <h1 class = "CDM1"> <b>INTERACTIVE MAP </b></h1>
         </div>
     </div>
