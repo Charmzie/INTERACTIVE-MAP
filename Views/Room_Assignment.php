@@ -8,14 +8,17 @@
         @font-face {
             src: url(fonts/arialroundedmtbold.ttf);
             font-family: Arial-Rounded-Mt-Bold;
+            $font = 'path/to/arial-rounded-mt-bold.ttf';
         }
         @font-face {
-            src: url(fonts/Poppins-Bold.ttf);
-            font-family: Poppins-Bold;
+            src: url(fonts/arialroundedmtbold.ttf);
+            font-family: Arial-Rounded-Mt-Bold;
+            $font = 'path/to/arial-rounded-mt-bold.ttf';
         }
         @font-face{
-            src: url(fonts/Poppins-Regular.ttf);
-            font-family: Poppins-Regular;
+            src: url(fonts/arialroundedmtbold.ttf);
+            font-family: Arial-Rounded-Mt-Bold;
+            $font = 'path/to/arial-rounded-mt-bold.ttf';
         }
         body {
             margin: 0;
@@ -23,7 +26,7 @@
             background-color: #ffffff;
             display: flex;
             height: 100vh;
-            overflow: hidden;
+            overflow: auto;
         }
 
         .SideNav {
@@ -31,7 +34,7 @@
             width: 18vw;
             height: 100vh;
             background-color: rgba(4, 30, 49, 1);
-            top: 0vh; /* Below navbar */
+            top: 0;
             left: 0;
             display: flex;
             flex-direction: column;
@@ -40,117 +43,102 @@
             color: white;
         }
 
-        .SideNav img {
-            width: 100px;
-            margin-bottom: 10px;
-        }
-
-        .CdM, .AdminPort {
+        .SideNav h1, .SideNav h3 {
             text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .CdM {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .AdminPort {
-            font-size: 15px;
-            font-weight: 500;
         }
 
         .SideNav a {
-            display: block;
             text-decoration: none;
             color: white;
-            font-size: 15px;
             padding: 10px;
             width: 80%;
             text-align: center;
+            margin-top: 10px;
+            display: block;
             border-radius: 5px;
-            margin-bottom: 10px;
-            transition: 0.3s;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
         }
 
         .SideNav a:hover {
-            background-color: rgb(49, 220, 183, 100%);
-            color:black;
+            background-color: #20c997;
+            color: black;
         }
 
         .mainContent {
-            margin-left: 15vw;
+            src: url(fonts/arialroundedmtbold.ttf);
+            font-family: Arial-Rounded-Mt-Bold;
+            $font = 'path/to/arial-rounded-mt-bold.ttf';
+            margin-left: 20vw;
             padding: 20px;
-            width: calc(85vw - 40px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .mainContent h1 {
-            font-family: Poppins-Bold, Arial, Helvetica, sans-serif;
-            font-size: 25px;
-            color: #042031;
-            position: absolute;
-            top: 10vh; /* Start below the navbar */
-            left: 18vw; /* Place to the right of the sidebar */
-            margin: 0;
-            padding: 10px;
-        }
-
-        .mainContent h4 {
-            font-size: 18px;
-            color: #000;
-            position: absolute;
-            top: 15vh; /* Start below the navbar */
-            left: 25vw; /* Place to the right of the sidebar */
-            margin: 0;
-            padding: 10px;
+            flex-grow: 1;
+            overflow-y: auto;
+            max-height: 100vh;
         }
 
         .tableContainer {
-            position: absolute;
-            top: 24vh; /* Below the navbar */
-            left: 30vw; /* To the right of the sidebar */
-            width: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50vw;
+            margin: auto;
+            margin-top: 10vh;
             border: 1px solid #ccc;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
             padding: 20px;
             background-color: #fff;
-}
+            max-height: 60vh; 
+            overflow-y: auto;
+        }
 
         table {
             width: 100%;
             border-collapse: collapse;
-
+            text-align: center;
         }
 
-        table th, table td {
+        th, td {
             padding: 10px;
-            text-align: left;
             border-bottom: 1px solid #ddd;
         }
 
-        table th {
-            background-color: #f4f4f4;
+        th {
+            font-weight: bold;
+        }
+
+        select {
+            width: 100%;
+            padding: 5px;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: white;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        select:focus {
+            border-color: #20c997;
+            outline: none;
+        }
+
+        select option {
+            padding: 5px;
         }
 
         .addRowButton {
-            position: relative;
-            top: -33vh;
-            left:-8vw;
-            margin-top: 20px;
+            display: block;
+            margin: 20px auto;
             background-color: #28a745;
             color: white;
             border: none;
             padding: 10px 20px;
             font-size: 16px;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
             transition: 0.3s;
+            position: relative;
+            left: -20px;
 
         }
 
@@ -158,38 +146,157 @@
             background-color: #218838;
         }
     </style>
+    <script>
+        function addRow() {
+            let table = document.querySelector("tbody");
+            let newRow = document.createElement("tr");
+            newRow.innerHTML = `
+                <td>
+                    <select>
+                        <option value="">Select Room ID</option>
+                        <option value="410">410</option>
+                        <option value="411">411</option>
+                        <option value="412">412</option>
+                        <option value="413">413</option>
+                        <option value="510">510</option>
+                        <option value="511">511</option>
+                        <option value="512">512</option>
+                        <option value="513">513</option>
+                        <option value="610">610</option>
+                        <option value="611">611</option>
+                        <option value="612">612</option>
+                        <option value="613">613</option>
+                        <option value="CE1">410</option>
+                        <option value="CE2">411</option>
+                        <option value="CPE1">412</option>
+                        <option value="DRAWING ROOM">DRAWING ROOM</option>
+                        <option value="ECE1">ECE1</option>
+                        <option value="ECE2">ECE2</option>
+                        <option value="EE2">EE2</option>
+                        <option value="ME1">ME1</option>
+                        <option value="ME2">ME2</option>
+                        <option value="MULTI-PURPOSE HALL">MULTI-PURPOSE HALL</option>
+                        <option value="ONLINE">ONLINE</option>
+                        <option value="TBA">TBA</option>
+                        <option value="AVR">AVR</option>
+                        <option value="SEMINAR ROOM">SEMINAR ROOM</option>
+                        <option value="CE Laboratory">CE Laboratory</option>
+                        <option value="Chemistry Laboratory">Chemistry Laboratory</option>
+                        <option value="Computer Laboratory 1">Computer Laboratory 1</option>
+                        <option value="Computer Laboratory 2">Computer Laboratory 2</option>
+                        <option value="CPE Laboratory">CPE Laboratory</option>
+                        <option value="EE Laboratory">EE Laboratory</option>
+                        <option value="ECE Laboratory">ECE Laboratory</option>
+                        <option value="ME Laboratory">ME Laboratory</option>
+                        <option value="Physics Laboratory">Physics Laboratory</option> 
+                    </select>
+                </td>
+                <td>
+                    <select>
+                        <option value="">Select Program ID</option>
+                        <option value="ENE">ENE</option>
+                        <option value="ECE">ECE</option>
+                        <option value="EE">EE</option>
+                        <option value="IE">IE</option>
+                        <option value="Ar">Ar</option>
+                        <option value="ME">ME</option>
+                        <option value="CPE">CPE</option>
+                        <option value="CE">CE</option>
+                    </select>
+                </td>`;
+            table.appendChild(newRow);
+        }
+    </script>
 </head>
 <body>
-    <div class="UpNav"></div>
-
     <div class="SideNav">
-        <img src="../resources/CDM-Logo.png" alt="CDM Logo">
-        <h1 class="CdM">COLEGIO DE MUNTINLUPA</h1>
-        <h3 class="AdminPort">ADMIN PORTAL</h3>
-        <a href="#Dashboard" class="Dash">Dashboard</a>
-        <a href="#MyAccount" class="Acc">My Account</a>
+        <img src="resources/CDM-Logo.png" alt="CDM Logo">
+        <h1>COLEGIO DE MUNTINLUPA</h1>
+        <h3>ADMIN PORTAL</h3>
+        <a href="#Dashboard">Dashboard</a>
+        <a href="#MyAccount">My Account</a>
+        <a href="#ConductandComplianceManagement">Conduct and Compliance Management</a>
+        <a href="#InteractiveMap">Interactive Map</a>
+
     </div>
-    
     <div class="mainContent">
-        <h1>ROOM ASSIGNATION</h1>
-        <h4>Room Assignation: Editable </h4>
-        <div class="tableContainer">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ROOM ID</th>
-                        <th>PROGRAM ID</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <button class="addRowButton">ADD NEW ROW</button>
+    <h1>ROOM ASSIGNATION</h1>
+    <h4>Room Assignation: Editable </h4>
+
+    <div class="tableContainer">
+        <table>
+            <thead>
+                <tr>
+                    <th>ROOM ID</th>
+                    <th>PROGRAM ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <select>
+                            <option value="">Select Room ID</option>
+                            <option value="410">410</option>
+                            <option value="411">411</option>
+                            <option value="412">412</option>
+                            <option value="413">413</option>
+                            <option value="510">510</option>
+                            <option value="511">511</option>
+                            <option value="512">512</option>
+                            <option value="513">513</option>
+                            <option value="610">610</option>
+                            <option value="611">611</option>
+                            <option value="612">612</option>
+                            <option value="613">613</option>
+                            <option value="CE1">410</option>
+                            <option value="CE2">411</option>
+                            <option value="CPE1">412</option>
+                            <option value="DRAWING ROOM">DRAWING ROOM</option>
+                            <option value="ECE1">ECE1</option>
+                            <option value="ECE2">ECE2</option>
+                            <option value="EE2">EE2</option>
+                            <option value="ME1">ME1</option>
+                            <option value="ME2">ME2</option>
+                            <option value="MULTI-PURPOSE HALL">MULTI-PURPOSE HALL</option>
+                            <option value="ONLINE">ONLINE</option>
+                            <option value="TBA">TBA</option>
+                            <option value="AVR">AVR</option>
+                            <option value="SEMINAR ROOM">SEMINAR ROOM</option>
+                            <option value="CE Laboratory">CE Laboratory</option>
+                            <option value="Chemistry Laboratory">Chemistry Laboratory</option>
+                            <option value="Computer Laboratory 1">Computer Laboratory 1</option>
+                            <option value="Computer Laboratory 2">Computer Laboratory 2</option>
+                            <option value="CPE Laboratory">CPE Laboratory</option>
+                            <option value="EE Laboratory">EE Laboratory</option>
+                            <option value="ECE Laboratory">ECE Laboratory</option>
+                            <option value="ME Laboratory">ME Laboratory</option>
+                            <option value="Physics Laboratory">Physics Laboratory</option>
+
+                        </select>
+                    </td>
+                    <td>
+                        <select>
+                            <option value="">Select Program ID</option>
+                            <option value="ENE">ENE</option>
+                            <option value="ECE">ECE</option>
+                            <option value="EE">EE</option>
+                            <option value="IE">IE</option>
+                            <option value="Ar">Ar</option>
+                            <option value="ME">ME</option>
+                            <option value="CPE">CPE</option>
+                            <option value="CE">CE</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+        <button class="addRowButton" onclick="addRow()">ADD NEW ROW</button>
     </div>
 </body>
 </html>
+
+
+
+
