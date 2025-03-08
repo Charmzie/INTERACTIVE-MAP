@@ -12,22 +12,12 @@
             background-color: #f4f4f4;
         }
 
-        .UpNav {
-            position: fixed;
-            width: 100vw;
-            height: 10vh;
-            background-color: rgba(4, 30, 39, 1);
-            top: 0;
-            left: 0;
-            z-index: 1000;
-        }
-
         .SideNav {
             position: fixed;
-            width: 15vw;
+            width: 18vw;
             height: 100vh;
-            background-color: rgba(4, 30, 39, 1);
-            top: 10vh; /* Below navbar */
+            background-color: #041E31;
+            top: 0vh; 
             left: 0;
             display: flex;
             flex-direction: column;
@@ -35,27 +25,49 @@
             padding-top: 20px;
             color: white;
         }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 0px;
+            text-align: left;
+        }
+        .text-container {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+            padding: 0px;
+        
+        }
 
         .CDMLogo {
-            width: 155px;
-            height: 150px;
+            width: 60px;
+            height: 60px;
+            margin-right: 5px;
         }
 
-        .CdM, .AdminPort, .MainMenu {
+        .MainMenu {
             text-align: center;
-            letter-spacing: 2px;
+            letter-spacing: 0px;
+            font-family: Poppins-Bold, Arial, sans-serif
         }
 
-        .CdM {
+        .Colegio_De_Muntinlupa {
+            font-family:Poppins-Bold, Arial, sans-serif;
             font-size: 18px;
             font-weight: bold;
-            margin: 10px 0;
+            margin: 10px;
+            text-align:left;
+
         }
 
-        .AdminPort {
-            font-size: 15px;
+        .Admin_Port {
+            font-family:Poppins-Bold, Arial, sans-serif;
+            font-size: 12px;
             font-weight: 500;
             margin-bottom: 10px;
+            text-align: left;
+
         }
 
         .MainMenu {
@@ -88,15 +100,18 @@
 </head>
 <body>
 
-    <div class="UpNav"></div>
-
     <div class="SideNav">
-        <img class="CDMLogo" src="resources/CDM-Logo.png" alt="CDM Logo"> 
-        <h1 class="CdM">COLEGIO DE MUNTINLUPA</h1> 
-        <h3 class="AdminPort">ADMIN PORTAL</h3>
+        <div class="logo-container">
+            <img class="CDMLogo" src="resources/CDM-Logo.png" alt="CDM Logo">
+            <div class="text-container">
+                <h1 class="Colegio_De_Muntinlupa">COLEGIO DE MUNTINLUPA</h1>
+                <h3 class="Admin_Port">ADMIN PORTAL</h3>
+            </div>
+        </div>
         <h4 class="MainMenu">Main Menu</h4>  
-        <a href="#Dashboard" class="Dash">Dashboard</a>
-        <a href="#MyAccount" class="Acc">My Account</a>
+        <a href="#Dashboard" class="nav-link">Dashboard</a>
+        <a href="#MyAccount" class="nav-link">My Account</a>
+
     </div>
 
 
