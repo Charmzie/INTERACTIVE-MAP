@@ -11,7 +11,7 @@
             width: 100vw;
             height: 150vh;
             overflow-y: auto;
-            overflow-x:auto; 
+            overflow-x:hidden; 
         }
 
         .Background-Vid {

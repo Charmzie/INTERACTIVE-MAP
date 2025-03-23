@@ -7,11 +7,9 @@ ini_set('display_errors', 1);
 $servername = "127.0.0.1";  // Localhost
 $username = "root";         // Default MySQL username
 $password = "";             // Leave empty if no password
-$database = "Number_of_Students";     // Your database name
-
+$database = "Number_of_Students";  // Database name
 
 $conn = new mysqli($servername, $username, $password, $database);
-
 
 if ($conn->connect_error) {
     die("Database connection failed: " . $conn->connect_error);
@@ -28,13 +26,14 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Info</title>
+    
     <style>
         body {
-            margin:0;
+            margin: 0;
             width: 100vw;
             height: 150vh;
             overflow-y: auto;
-            overflow-x:auto; 
+            overflow-x: auto;
         }
         table {
             position: relative;
@@ -58,74 +57,130 @@ $result = $conn->query($sql);
             background-color: #f1f1f1;
         }
 
-        .Population{
-            position:absolute;
+        .Population {
+            position: absolute;
             top: 100px;
-            left:200px;
+            left: 200px;
             color: Black;
             font-size: 40px;
-            font-weight:20px;
-            letter-spacing:3px;
+            letter-spacing: 3px;
         }
 
-        .Enrolled{
-            position:absolute;
+        /* Wrapper to align text and dropdown in one row */
+        .header-container {
+            display: flex;
+            align-items: center;
+            position: absolute;
             top: 200px;
-            left:230px;
+            left: 230px;
+        }
+
+        .Enrolled {
             color: Black;
             font-size: 25px;
-            font-weight:20px;
-            letter-spacing:3px;
+            letter-spacing: 3px;
+            margin-right: 20px; /* Spacing between text and dropdown */
         }
 
-        .dropdown{
+        .dropdown {
+            position: relative;
             display: inline-block;
         }
-        .dropdown button{
-            background-color: yellow;
-            color: black;
-            padding: 10px 15px;
+
+        .dropdown .dropbtn {
+            font-size: 16px;
             border: none;
+            outline: none;
+            color: white;
+            padding: 10px 16px;
+            background-color: #041e27; /* Dark blue */
+            font-family: inherit;
             cursor: pointer;
+            border-radius: 5px;
         }
 
-        .dropdown a{
-            display: block;
-            color: black;
-            text-decoration: none;
-            padding: 10px 15px;
+        .dropdown .dropbtn:hover {
+            background-color: #d9534f; /* Red on hover */
         }
 
-        .dropdown .years{
-            display:none;
-            position:absolute;
-            background-color:white;
-            min-width:100px;
-            box-shadow: 2px 2px 5px black;
-        }
-
-        .dropdown:hover .years{
-            display:block;
-        }
-
-        .drowpdown:hover button{
+        .dropdown-content {
+            display: none;
+            position: absolute;
             background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
         }
 
-        .dropdown a:hover{
-            background-color: blue;
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .Pie {
+            position: absolute;
+            left: 620px;
+            top: 300px;
         }
     </style>
+    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Program Description', 'Number of Students'],
+          <?php
+          $sql = "SELECT `Program Description`, `Number of Students` FROM `Student_Info_2020_2021`"; 
+          $fire = mysqli_query($conn, $sql);
+          while ($row = mysqli_fetch_assoc($fire)){
+              echo "['".$row['Program Description']."', ".$row['Number of Students']."],";
+          }
+          ?>
+        ]);
+
+        var options = {
+          backgroundColor: 'transparent',
+          pieHole: 0.4,
+          colors: ['#9400B1', '#2bca43', '#ffae00', '#F8F812', '#2112F8', '#EB14B5','#EB14B5', '#BE0000'],
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>
 </head>
 <body>
 
-    <h1 class = "Population"> Colegio De Muntinlupa: Student Population </h1>
-    <h4 class = "Enrolled"> Enrolled Students per Program </h4>
-
-    <?php
+    <h1 class="Population"> Colegio De Muntinlupa: Student Population </h1>
     
-    include '../Views/side1.php';
-    if ($result->num_rows > 0): ?>
+    <!-- Header section containing text and dropdown side by side -->
+    <div class="header-container">
+        <h4 class="Enrolled"> Enrolled Students per Program </h4>
+        <div class="dropdown">
+            <button class="dropbtn">Select Semester Date ▼</button>
+            <div class="dropdown-content">
+                <a href="Student_2020_2021_1S.php">First Semester</a>
+                <a href="Student_2020_2021.php">Second Semester</a>
+                <a href="Student_2020_2021_Sum.php">Summer</a>
+            </div>
+        </div>
+    </div>
+
+    <?php include '../Views/side1.php'; ?>
+    
+    <?php if ($result->num_rows > 0): ?>
         <table>
             <tr>
                 <th>Program Description</th>
@@ -146,17 +201,9 @@ $result = $conn->query($sql);
         <p>No records found.</p>
     <?php endif; ?>
 
-    <div class="dropdown">
-        <button> Academic Year </button>
-        <div class = "years">
-            <a href = ""> 2022 - 2023 (1st Sem) </a>
-            <a href = ""> 2022 - 2023 (2nd Sem)</a>
-            <a href = ""> 2023 - 2024 (1st Sem)</a>
-            <a href = ""> 2023 - 2024 (2nd Sem)</a>
-            <a href = ""> 2024 - 2025 (1st Sem)</a>
-            <a href = ""> 2024 - 2025 (2nd Sem)</a>
-     </div>
-  </div>
+    <div class="Pie">
+        <div id="donutchart" style="width: 720px; height: 500px;"></div>
+    </div>
 
 </body>
 </html>

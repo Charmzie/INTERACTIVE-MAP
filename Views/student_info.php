@@ -1,11 +1,18 @@
 <style>
+    html, body {
+    position:fixed;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+}
 /* Main Container */
 .Middle {
     position: relative;
     margin: 0;
     left: 230px;
     top: 120px;
-    width: 80vw;
+    width: 65vw;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -188,8 +195,9 @@
 
 .Hori{
     position:relative;
+    left:80px;
     top: -20px;
-    width:90%;
+    width:100%;
     weight: 2px;
     height: 3px;
     background-color: black;
