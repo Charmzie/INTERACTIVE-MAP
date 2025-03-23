@@ -78,7 +78,7 @@
 
 
     <div class="SideNav">
-        <img class="CDMLogo" src="../resources/CDM-Logo.png" alt="CDM Logo"> 
+        <img class="CDMLogo" src="resources/CDM-Logo.png" alt="CDM Logo"> 
         <h1 class="CdM">COLEGIO DE MUNTINLUPA</h1> 
         <h3 class="AdminPort">ADMIN PORTAL</h3>
         <h4 class="MainMenu">Main Menu</h4>  

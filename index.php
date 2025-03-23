@@ -9,6 +9,6 @@
 
 <?php 
 include 'Views/up.php';
-include 'Views/side.php';
+include 'Views/Side_noUp.php';
 include 'Views/middle.php';
 
