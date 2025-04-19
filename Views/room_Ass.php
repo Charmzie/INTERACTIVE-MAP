@@ -66,28 +66,49 @@
             max-height: 60vh;
             overflow-y: auto;
         }
-        table {
+        .contentWrapper {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
             width: 100%;
-            border-collapse: collapse;
-            text-align: center;
         }
-        th, td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
+        .roomAssignment, .roomSchedule {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        th {
-            font-weight: bold;
-        }
-        select {
-            width: 100%;
-            padding: 5px;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background-color: white;
-            border: 1px solid #ccc;
-            cursor: pointer;
-        }
+        .tableContainer {
+        width: 100%;
+        max-width: 400px; /* Reduced from previous width */
+        margin: 20px auto;
+        padding: 15px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        width: 50%; /* Make columns equal width */
+    }
+
+    select {
+        width: 90%; /* Slightly smaller than cell width */
+        padding: 4px;
+        margin: 2px auto;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
         select:focus {
             border-color: #20c997;
             outline: none;
@@ -96,9 +117,24 @@
             padding: 5px;
         }
         .addRowButton {
-            display: block;
-            margin: 20px auto;
-            background-color: #28a745;
+            display: inline-block;
+            margin: 20px 10px;
+            background-color:rgb(0, 134, 52);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+    }
+        .addRowButton:hover {
+            background-color: #218838;
+        }
+        .saveButton {
+            display: inline-block;
+            margin: 20px 10px;
+            background-color: #007bff;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -107,8 +143,8 @@
             cursor: pointer;
             transition: 0.3s;
         }
-        .addRowButton:hover {
-            background-color: #218838;
+        .saveButton:hover {
+            background-color: #0056b3;
         }
     </style>
     <script>
@@ -171,6 +207,44 @@
             </td>`;
             table.appendChild(newRow);
         }
+        function saveAssignments() {
+            const rows = document.querySelectorAll("tbody tr");
+            let formData = new FormData();
+            let hasData = false;
+
+            rows.forEach((row, index) => {
+                const roomId = row.querySelector("td:first-child select").value;
+                const programId = row.querySelector("td:last-child select").value;
+                
+                if (roomId && programId) {
+                    formData.append(`assignments[${index}][room_id]`, roomId);
+                    formData.append(`assignments[${index}][program_id]`, programId);
+                    hasData = true;
+                }
+            });
+
+            if (!hasData) {
+                alert("Please fill in at least one room assignment.");
+                return;
+            }
+
+            fetch('save_room_assignments.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Room assignments saved successfully!");
+                } else {
+                    alert("Error: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Error saving assignments. Please try again.");
+            });
+        }
     </script>
 </head>
 <body>
@@ -181,12 +255,14 @@
         <a href="#Dashboard">Dashboard</a>
         <a href="#MyAccount">My Account</a>
         <a href="#ConductandComplianceManagement">Conduct and Compliance Management</a>
-        <a href="#InteractiveMap">Interactive Map</a>
+        <a href="Interactive_Map.php">Interactive Map</a>
     </div>
     <div class="mainContent">
-        <h1>ROOM ASSIGNATION</h1>
-        <h4>Room Assignation: Editable</h4>
-        <div class="tableContainer">
+        <div class="contentWrapper">
+            <div class="roomAssignment">
+                <h1>ROOM ASSIGNATION</h1>
+                <h4>Room Assignation: Editable</h4>
+                <div class="tableContainer">
             <table>
                 <thead>
                     <tr>
@@ -254,6 +330,10 @@
             </table>
         </div>
         <button class="addRowButton" onclick="addRow()">ADD NEW ROW</button>
+        <button class="saveButton" onclick="saveAssignments()">SAVE ASSIGNMENTS</button>
     </div>
+    <div class="roomSchedule">
+                <?php include 'Room_Schedule_editable.php'; ?>
+            </div>
 </body>
 </html>

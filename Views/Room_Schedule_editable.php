@@ -76,41 +76,70 @@
       gap: 15px;
       flex-wrap: wrap;
     }
-    .form-group {
-      margin-bottom: 15px;
-      flex: 1;
-      min-width: 200px;
-    }
-    .form-control {
+
+    .sidebar-button {
+      display: block;
       width: 100%;
-      padding: 8px;
-      box-sizing: border-box;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-    }
-    button {
-      background-color: #4CAF50;
+      text-align: left;
+      margin-bottom: 10px;
+      padding: 12px;
       color: white;
       border: none;
-      padding: 10px 15px;
-      cursor: pointer;
       border-radius: 4px;
-      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
-    button:hover {
-      background-color: #45a049;
+
+    /* Individual button colors */
+    #openAddClassModal {
+      background-color: #28a745;
     }
-    .action-buttons {
-      display: flex;
-      gap: 10px;
-      margin-top: 15px;
-      justify-content: space-between;
+    #openAddClassModal:hover {
+      background-color: #218838;
+      transform: translateY(-2px);
     }
+
+    #saveSchedule {
+      background-color: #007bff;
+    }
+    #saveSchedule:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+
     #clearAll {
-      background-color: #f44336;
+      background-color: #dc3545;
     }
     #clearAll:hover {
-      background-color: #d32f2f;
+      background-color: #c82333;
+      transform: translateY(-2px);
+    }
+
+    /* Export button */
+    button[class='sidebar-button']:nth-of-type(4) {
+      background-color: #17a2b8;
+    }
+    button[class='sidebar-button']:nth-of-type(4):hover {
+      background-color: #138496;
+      transform: translateY(-2px);
+    }
+
+    /* Import button */
+    button[class='sidebar-button']:nth-of-type(5) {
+      background-color: #6610f2;
+    }
+    button[class='sidebar-button']:nth-of-type(5):hover {
+      background-color: #520dc2;
+      transform: translateY(-2px);
+    }
+
+    /* Print button */
+    button[class='sidebar-button']:nth-of-type(6) {
+      background-color: #6c757d;
+    }
+    button[class='sidebar-button']:nth-of-type(6):hover {
+      background-color: #5a6268;
+      transform: translateY(-2px);
     }
     #saveSchedule {
       background-color: #2196F3;
@@ -118,6 +147,13 @@
     #saveSchedule:hover {
       background-color: #0b7dda;
     }
+    #openAddClassModal {
+      background-color: #28a745; /* Green */
+    }
+    #openAddClassModal:hover {
+      background-color: #218838;
+    }
+
     .delete-button {
       position: absolute;
       top: 2px;
@@ -269,36 +305,36 @@
   <div class="container">
     <h1>Enhanced Class Schedule Maker</h1>
     
-    <div class="controls">
-      <button id="openAddClassModal" class="sidebar-button">
+<div class="controls">
+      <button id="openAddClassModal" class="sidebar-button" style="background-color: #28a745;">
         <i>➕</i> Add Class
       </button>
-      <button id="saveSchedule" class="sidebar-button">
+      <button id="saveSchedule" class="sidebar-button" style="background-color: #007bff;">
         <i>💾</i> Save Schedule
       </button>
-      <button id="clearAll" class="sidebar-button">
+      <button id="clearAll" class="sidebar-button" style="background-color: #dc3545;">
         <i>🗑️</i> Clear All Classes
       </button>
     </div>
     
-    <div class="responsive-wrapper">
+    <class="responsive-wrapper">
       <table id="scheduleTable">
         <thead>
           <tr>
             <th class="time-cell">Time</th>
-            <th>Monday</th>
-            <th>Tuesday</th>
-            <th>Wednesday</th>
-            <th>Thursday</th>
-            <th>Friday</th>
-            <th>Saturday</th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thurs</th>
+            <th>Fri</th>
+            <th>Sat</th>
           </tr>
         </thead>
         <tbody>
           <!-- Time slots will be generated here -->
         </tbody>
       </table>
-    </div>
+  </div>
   </div>
   
   <!-- Add Class Modal -->
@@ -339,32 +375,32 @@
           <label>Days:</label>
           <div class="day-selector">
             <div class="day-checkbox">
-              <input type="checkbox" id="monday" value="Monday">
-              <label for="monday">Mon</label>
+              <input type="checkbox" id="mon" value="Mon">
+              <label for="mon">Mon</label>
             </div>
             <div class="day-checkbox">
-              <input type="checkbox" id="tuesday" value="Tuesday">
-              <label for="tuesday">Tue</label>
+              <input type="checkbox" id="tue" value="Tue">
+              <label for="tue">Tue</label>
             </div>
             <div class="day-checkbox">
-              <input type="checkbox" id="wednesday" value="Wednesday">
-              <label for="wednesday">Wed</label>
+              <input type="checkbox" id="wed" value="Wed">
+              <label for="wedn">Wed</label>
             </div>
             <div class="day-checkbox">
-              <input type="checkbox" id="thursday" value="Thursday">
-              <label for="thursday">Thu</label>
+              <input type="checkbox" id="thurs" value="Thurs">
+              <label for="thurs">Thu</label>
             </div>
             <div class="day-checkbox">
-              <input type="checkbox" id="friday" value="Friday">
-              <label for="friday">Fri</label>
+              <input type="checkbox" id="fri" value="Fri">
+              <label for="fri">Fri</label>
             </div>
             <div class="day-checkbox">
-              <input type="checkbox" id="saturday" value="Saturday">
-              <label for="saturday">Sat</label>
+              <input type="checkbox" id="sat" value="Sat">
+              <label for="sat">Sat</label>
             </div>
             <div class="day-checkbox">
-              <input type="checkbox" id="sunday" value="Sunday">
-              <label for="sunday">Sun</label>
+              <input type="checkbox" id="sun" value="Sun  ">
+              <label for="sun">Sun</label>
             </div>
           </div>
         </div>
@@ -425,7 +461,7 @@
         "19:30-20:00", "20:00-20:30", "20:30-21:00"
       ];
       
-      const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const days = ["Mon", "Tue", "Wed", "Thurs", "Fri", "Sat"];
       const tbody = document.querySelector('#scheduleTable tbody');
       
       // Create rows for each time slot
