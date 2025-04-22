@@ -25,7 +25,7 @@
     width: 18vw;
     height: 25vh;
     display: flex;
-    justify-content: center;N
+    justify-content: center;
     align-items: center;
     box-shadow: 14px 8px 16px 1px rgba(0, 117, 196);
     border-radius: 10px;

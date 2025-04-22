@@ -333,7 +333,11 @@
         <button class="saveButton" onclick="saveAssignments()">SAVE ASSIGNMENTS</button>
     </div>
     <div class="roomSchedule">
+<<<<<<< HEAD
                 <?php include 'Room_Schedule_edit.php'; ?>
+=======
+                <?php include 'Room_Schedule_editable.php'; ?>
+>>>>>>> 2ac6724fc6cd48095a81c49c93680dba80d5a29e
             </div>
 </body>
 </html>
