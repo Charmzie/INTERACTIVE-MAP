@@ -29,6 +29,7 @@
         .SideNav h1, .SideNav h3 {
             text-align: center;
         }
+        
         .SideNav a {
             text-decoration: none;
             color: white;
@@ -249,7 +250,7 @@
 </head>
 <body>
     <div class="SideNav">
-        <img src="resources/CDM-Logo.png" alt="CDM Logo">
+        <img src="../resources/CDM-Logo.png" alt="CDM Logo" width="100" height="100">
         <h1>COLEGIO DE MUNTINLUPA</h1>
         <h3>ADMIN PORTAL</h3>
         <a href="#Dashboard">Dashboard</a>
@@ -260,6 +261,7 @@
     <div class="mainContent">
         <div class="contentWrapper">
             <div class="roomAssignment">
+                <img src="../resources/CDM-Logo.png" alt="CDM Logo" width="100" height="100">
                 <h1>ROOM ASSIGNATION</h1>
                 <h4>Room Assignation: Editable</h4>
                 <div class="tableContainer">
@@ -334,6 +336,11 @@
     </div>
     <div class="roomSchedule">
                 <?php include 'Room_Schedule_editable.php'; ?>
-            </div>
+    </div>
+
+    <script>
+        
+    </script>
+    
 </body>
 </html>

@@ -27,6 +27,15 @@
       color: #333;
       margin-top: 0;
     }
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-top: 0;
+    }
+    img {
+        display: block;
+        margin: 0 auto; /* Centers the image horizontally */
+    }
     .input-section {
       display: flex;
       flex-wrap: wrap;
@@ -124,7 +133,7 @@
       font-weight: bold;
       margin-bottom: 3px;
     }
-    .course-code {
+    .section {
       font-size: 14px;
       margin-bottom: 5px;
     }
@@ -201,7 +210,9 @@
 </head>
 <body>
   <div class="container">
-    <h1>Interactive Schedule Maker</h1>
+    <img src="../resources/CDM-Logo.png" alt="CDM Logo" width="100" height="100">
+    <h1>COLEGIO DE MUNTINLUPA</h1>
+    <h2>Schedule Maker: Editable </h2>
     
     <div class="input-section">
       <div class="input-group">
@@ -210,8 +221,8 @@
       </div>
       
       <div class="input-group">
-        <label for="course-code">Course Code</label>
-        <input type="text" id="course-code" placeholder="e.g., CE3B">
+        <label for="section">Section</label>
+        <input type="text" id="section" placeholder="e.g., CE3B">
       </div>
       
       <div class="input-group">
@@ -390,7 +401,7 @@
       // Function to add a subject to the schedule
       function addSubject() {
         const subjectName = document.getElementById('subject-name').value.trim();
-        const courseCode = document.getElementById('course-code').value.trim();
+        const section = document.getElementById('section').value.trim();
         const professor = document.getElementById('professor').value.trim();
         const subjectColor = document.getElementById('subject-color').value;
         const startHour = startHourSelect.value;
@@ -476,11 +487,11 @@
           subjectNameElem.textContent = subjectName;
           subjectItem.appendChild(subjectNameElem);
           
-          if (courseCode) {
-            const courseCodeElem = document.createElement('div');
-            courseCodeElem.className = 'course-code';
-            courseCodeElem.textContent = courseCode;
-            subjectItem.appendChild(courseCodeElem);
+          if (section) {
+            const sectionElem = document.createElement('div');
+            sectionElem.className = 'section';
+            sectionElem.textContent = section;
+            subjectItem.appendChild(sectionElem);
           }
           
           if (professor) {
@@ -558,7 +569,7 @@
         
         // Clear inputs after adding
         document.getElementById('subject-name').value = '';
-        document.getElementById('course-code').value = '';
+        document.getElementById('section').value = '';
         document.getElementById('professor').value = '';
         startHourSelect.selectedIndex = 0;
         startMinuteSelect.selectedIndex = 0;
