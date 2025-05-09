@@ -1,0 +1,385 @@
+.svelte-1ulz7i8,
+.svelte-1ulz7i8:before,
+.svelte-1ulz7i8:after {
+    box-sizing: inherit
+}
+
+.header.svelte-1ulz7i8 {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #525884;
+    box-shadow: 1px 1px 1px 1px #62699d;
+    font-family: Ubuntu, Trebuchet MS, Tahoma, Helvetica, Verdana, Geneva, Arial, sans-serif;
+    white-space: nowrap
+}
+
+@media screen and (max-width: 480px) {
+    .header.svelte-1ulz7i8 {
+        height: 60px;
+        font-size: 17px
+    }
+}
+
+@media screen and (min-width: 481px) {
+    .header.svelte-1ulz7i8 {
+        height: 50px;
+        font-size: 15px
+    }
+}
+
+.links.svelte-1ulz7i8 {
+    display: flex;
+    align-items: center;
+    overflow: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    width: 100%
+}
+
+.links.svelte-1ulz7i8::-webkit-scrollbar {
+    display: none
+}
+
+.icon.svelte-1ulz7i8 {
+    width: 36px;
+    margin-right: 6px
+}
+
+@media screen and (max-width: 480px) {
+    .icon.svelte-1ulz7i8 {
+        width: 40px
+    }
+}
+
+.logo.svelte-1ulz7i8 {
+    height: 100%;
+    margin-left: 10px;
+    margin-right: 20px
+}
+
+@media screen and (max-width: 480px) {
+    .logo.svelte-1ulz7i8 {
+        min-width: 100px;
+        width: 100px
+    }
+}
+
+@media screen and (min-width: 481px) {
+    .logo.svelte-1ulz7i8 {
+        min-width: 92px;
+        width: 92px
+    }
+}
+
+a.svelte-1ulz7i8 {
+    text-decoration: none
+}
+
+.new.svelte-1ulz7i8 {
+    margin-right: 4px;
+    padding: 2px 4px;
+    border-radius: 5px;
+    background-color: #daa520;
+    color: #000
+}
+
+.app-link.svelte-1ulz7i8 {
+    display: flex;
+    align-items: center;
+    padding: 2px 9px 2px 10px;
+    margin-left: 4px;
+    margin-right: 4px;
+    background-color: #3e4365;
+    box-shadow: 1px 1px 1px 1px #393d5b;
+    border-radius: 5px;
+    color: #fff;
+    text-align: center
+}
+
+.app-link.svelte-1ulz7i8:hover {
+    color: #ffe970
+}
+
+.app-link-selected.svelte-1ulz7i8 {
+    pointer-events: none;
+    background-color: #31344f;
+    box-shadow: 1px 1px 1px 1px #25283c;
+    color: #f5f5f5
+}
+
+@media screen and (min-width: 481px) {
+    .blog-link-cnt.svelte-1ulz7i8 {
+        margin-left: auto;
+        padding-left: 30px
+    }
+}
+
+.blog-link.svelte-1ulz7i8 {
+    margin-right: 20px;
+    padding: 10px 9px 10px 11px;
+    background-color: #3e4365;
+    box-shadow: 1px 1px 1px 1px #393d5b;
+    border-radius: 10px;
+    color: #fff
+}
+
+.blog-link.svelte-1ulz7i8:hover {
+    color: #ffe970
+}
+
+@media screen and (max-width: 480px) {
+    .blog-link.svelte-1ulz7i8 {
+        margin-left: 20px
+    }
+}
+
+.blog-link-selected.svelte-1ulz7i8 {
+    pointer-events: none;
+    background-color: #31344f;
+    box-shadow: 1px 1px 1px 1px #25283c;
+    color: #f5f5f5
+}
+
+.svelte-1xlgp8a,
+.svelte-1xlgp8a:before,
+.svelte-1xlgp8a:after {
+    box-sizing: inherit
+}
+
+button.svelte-1xlgp8a {
+    margin: 0;
+    padding: 0;
+    border: 0
+}
+
+button.svelte-1xlgp8a {
+    font: inherit
+}
+
+button.svelte-1xlgp8a {
+    border: none;
+    color: #000
+}
+
+button.svelte-1xlgp8a:focus {
+    border: none;
+    outline: none
+}
+
+.button-container.svelte-1xlgp8a {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 50px;
+    font-family: Ubuntu, Trebuchet MS, Tahoma, Helvetica, Verdana, Geneva, Arial, sans-serif
+}
+
+@media screen and (max-width: 480px) {
+    .button-container.svelte-1xlgp8a {
+        font-size: 16px
+    }
+}
+
+@media screen and (min-width: 481px) {
+    .button-container.svelte-1xlgp8a {
+        font-size: 14px
+    }
+}
+
+.comments-container.svelte-1xlgp8a {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    isolation: isolate;
+    width: 100%;
+    font-family: Ubuntu, Trebuchet MS, Tahoma, Helvetica, Verdana, Geneva, Arial, sans-serif
+}
+
+@media screen and (max-width: 480px) {
+    .comments-container.svelte-1xlgp8a {
+        font-size: 16px
+    }
+}
+
+@media screen and (min-width: 481px) {
+    .comments-container.svelte-1xlgp8a {
+        font-size: 14px
+    }
+}
+
+.comments.svelte-1xlgp8a {
+    width: 100%;
+    max-width: 1050px
+}
+
+@media screen and (min-width: 481px) {
+    .comments.svelte-1xlgp8a {
+        font-size: 15px;
+        font-family: Bitter, Tahoma, Helvetica, Verdana, Geneva, Arial, sans-serif;
+        max-width: 1050px
+    }
+}
+
+@media screen and (min-width: 481px) and (max-width: 999px) {
+    .comments.svelte-1xlgp8a {
+        max-width: 804px
+    }
+}
+
+.load-comments-button.svelte-1xlgp8a {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fafafa;
+    border: 1px solid #3b3f5e;
+    box-shadow: 1px 1px 3px 1px #e6e7ef;
+    border-bottom: 2px solid #3b3f5e;
+    border-radius: 6px 6px 5px 5px;
+    color: #272a3f
+}
+
+.load-comments-button.svelte-1xlgp8a:hover {
+    background-color: #f5f5f5
+}
+
+@media screen and (max-width: 480px) {
+    .load-comments-button.svelte-1xlgp8a {
+        width: 100%;
+        height: 50px
+    }
+}
+
+@media screen and (min-width: 481px) {
+    .load-comments-button.svelte-1xlgp8a {
+        width: 300px;
+        height: 40px;
+        padding: 10px 23px
+    }
+}
+
+.hide-comments-button.svelte-1xlgp8a {
+    position: absolute;
+    cursor: pointer;
+    background-color: #efeff4;
+    border: 1px solid #d9d9e6;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px 1px #d3d3e2;
+    color: #525884
+}
+
+.hide-comments-button.svelte-1xlgp8a:hover {
+    background-color: #e8e8f0
+}
+
+@media screen and (max-width: 480px) {
+    .hide-comments-button.svelte-1xlgp8a {
+        display: none
+    }
+}
+
+@media screen and (min-width: 481px) {
+    .hide-comments-button.svelte-1xlgp8a {
+        z-index: 1;
+        top: 15px;
+        padding: 6px
+    }
+}
+
+.icon.svelte-1xlgp8a {
+    display: inline-block;
+    margin-right: 10px;
+    fill: #3b3f5e
+}
+
+@media screen and (max-width: 480px) {
+    .icon.svelte-1xlgp8a {
+        width: 26px;
+        height: 26px
+    }
+}
+
+@media screen and (min-width: 481px) {
+    .icon.svelte-1xlgp8a {
+        width: 24px;
+        height: 24px
+    }
+}
+
+@font-face {
+    font-family: Bitter;
+    font-style: normal;
+    font-weight: 700;
+    src: local(""), url(./bitter-v28-latin-700.aefa21cc.woff2)
+}
+
+@font-face {
+    font-family: Bitter;
+    font-style: italic;
+    font-weight: 700;
+    src: local(""), url(./bitter-v28-latin-700italic.bf59cfb9.woff2)
+}
+
+@font-face {
+    font-family: Bitter;
+    font-style: italic;
+    font-weight: 400;
+    src: local(""), url(./bitter-v28-latin-italic.5fab899c.woff2)
+}
+
+@font-face {
+    font-family: Bitter;
+    font-style: normal;
+    font-weight: 400;
+    src: local(""), url(./bitter-v28-latin-regular.3b1f0c65.woff2)
+}
+
+@font-face {
+    font-family: Ubuntu;
+    font-style: italic;
+    font-weight: 300;
+    src: local(""), url(./ubuntu-v20-latin-300italic.e71a3c46.woff2)
+}
+
+@font-face {
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: 400;
+    src: local(""), url(./ubuntu-v20-latin-regular.7f653b3c.woff2)
+}
+
+@font-face {
+    font-family: Ubuntu;
+    font-style: italic;
+    font-weight: 400;
+    src: local(""), url(./ubuntu-v20-latin-italic.af186659.woff2)
+}
+
+@font-face {
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: 500;
+    src: local(""), url(./ubuntu-v20-latin-500.e8e147e1.woff2)
+}
+
+@font-face {
+    font-family: Ubuntu;
+    font-style: italic;
+    font-weight: 500;
+    src: local(""), url(./ubuntu-v20-latin-500italic.c270e660.woff2)
+}
+
+@font-face {
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: 700;
+    src: local(""), url(./ubuntu-v20-latin-700.7c00752c.woff2)
+}
+
+@font-face {
+    font-family: Ubuntu;
+    font-style: italic;
+    font-weight: 700;
+    src: local(""), url(./ubuntu-v20-latin-700italic.26918e42.woff2)
+}

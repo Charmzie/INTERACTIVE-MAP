@@ -56,7 +56,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 50vw;
+            width: 18vw;
             margin: auto;
             margin-top: 10vh;
             border: 1px solid #ccc;
@@ -69,16 +69,19 @@
         }
         .contentWrapper {
             display: flex;
+            flex-direction: column; /* Stack elements vertically */
             gap: 20px;
-            justify-content: space-between;
+            align-items: center; /* Center align the content */
             width: 100%;
         }
         .roomAssignment, .roomSchedule {
             flex: 1;
             background: white;
-            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .roomAssignment{
+            padding: 20px
         }
         .tableContainer {
         width: 100%;
@@ -336,6 +339,6 @@
     </div>
     <div class="roomSchedule">
                 <?php include 'Room_Schedule_editable.php'; ?>
-            </div>
+    </div>
 </body>
 </html>
