@@ -336,11 +336,6 @@
     </div>
     <div class="roomSchedule">
                 <?php include 'Room_Schedule_editable.php'; ?>
-    </div>
-
-    <script>
-        
-    </script>
-    
+            </div>
 </body>
 </html>
