@@ -59,6 +59,15 @@
       table-layout: fixed; /* Distributes columns evenly across the table */
     }
 
+    .schedule-table td {
+      border: 1px solid #ddd;
+      padding: 0; /* Remove padding */
+      text-align: center;
+      vertical-align: top;
+      height: 100px; /* Set a fixed height for consistency */
+      position: relative; /* For absolute positioning of subject-item */
+    }
+
     .schedule-table th, .schedule-table td {
       border: 1px solid #ddd;
       padding: 10px; /* Adjust for better spacing */
@@ -78,14 +87,17 @@
     }
     .subject-item {
       background-color: #a8e6a8;
-      border-radius: 4px;
       padding: 8px;
       text-align: center;
-      height: 100%;
-      position: relative;
+      position: absolute; /* Change to absolute positioning */
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0; /* Make it fill the entire cell */
       display: flex;
       flex-direction: column;
       justify-content: center;
+      border-radius: 0; /* Remove border radius for full coverage */
     }
     .subject-name {
       font-weight: bold;
@@ -236,6 +248,19 @@
     
     .cancel-btn:hover {
       background-color: #d32f2f;
+    }
+
+        .meeting-time-section {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 4px;
+      background-color: #f9f9f9;
+    }
+
+    .meeting-time-section .cancel-btn {
+      padding: 5px 10px;
+      font-size: 14px;
     }
     
     .time-inputs {
@@ -500,6 +525,9 @@
             </select>
           </div>
 
+           </select>
+            <button id="add-meeting-time-btn" class="add-new-button">Add Another Meeting Time</button>
+          
           <div class="modal-footer">
             <button id="cancel-add-class" class="cancel-btn">Cancel</button>
             <button id="submit-add-class">Add Class</button>
@@ -711,208 +739,125 @@
       }
       
       // Function to add a class to the schedule
-      function addClass() {
-        const subjectId = subjectSelect.value;
-        const professorId = professorSelect.value;
-        const section = document.getElementById('section-input').value.trim();
-        const subjectColor = document.getElementById('subject-color').value;
-        const startHour = startHourSelect.value;
-        const startMinute = startMinuteSelect.value;
-        const endHour = endHourSelect.value;
-        const endMinute = endMinuteSelect.value;
-        
-        // Validate inputs
-        if (!subjectId) {
-          alert('Please select a subject.');
+        function addClass() {
+      const subjectId = subjectSelect.value;
+      const professorId = professorSelect.value;
+      const section = document.getElementById('section-input').value.trim();
+      const subjectColor = document.getElementById('subject-color').value;
+      const maxStudents = document.getElementById('maximum_students').value;
+      const roomId = document.getElementById('room-select').value;
+
+      // Validate basic inputs
+      if (!subjectId || !professorId || !section || !roomId || !maxStudents) {
+          alert('Please fill in all required fields.');
           return;
-        }
-        
-        if (!professorId) {
-          alert('Please select a professor.');
-          return;
-        }
-        
-        if (!section) {
-          alert('Please enter a section.');
-          return;
-        }
-        
-        if (!startHour || !startMinute || !endHour || !endMinute) {
-          alert('Please select both start and end times.');
-          return;
-        }
-        
-        // Calculate start and end times as numbers for comparison
-        const startTime = parseInt(startHour) * 60 + parseInt(startMinute);
-        const endTime = parseInt(endHour) * 60 + parseInt(endMinute);
-        
-        if (startTime >= endTime) {
-          alert('End time must be after start time.');
-          return;
-        }
-        
-        // Get selected days
-        const selectedDays = [];
-        document.querySelectorAll('#add-class-modal .day-checkboxes input:checked').forEach(checkbox => {
-          selectedDays.push(checkbox.value);
-        });
-        
-        if (selectedDays.length === 0) {
-          alert('Please select at least one day.');
-          return;
-        }
-        
-        // Get subject and professor details
-        const subject = subjects.find(s => s.id == subjectId);
-        const professor = professors.find(p => p.id == professorId);
-        
-        if (!subject || !professor) {
+      }
+
+      // Get subject and professor details
+      const subject = subjects.find(s => s.id == subjectId);
+      const professor = professors.find(p => p.id == professorId);
+
+      if (!subject || !professor) {
           alert('Invalid subject or professor selection.');
           return;
-        }
-        
-        // Process each selected day
-        selectedDays.forEach(day => {
-          // Get all rows within the time range
-          const rows = Array.from(scheduleBody.querySelectorAll('tr')).filter(row => {
-            const rowTimeValue = parseInt(row.dataset.timeValue);
-            return rowTimeValue >= startTime && rowTimeValue < endTime;
-          }).sort((a, b) => parseInt(a.dataset.timeValue) - parseInt(b.dataset.timeValue));
-          
-          if (rows.length === 0) return;
-          
-          // Check if any of the cells in this day and time range are already occupied
-          let conflict = false;
-          rows.forEach(row => {
-            const dayCell = row.querySelector(`td[data-day="${day}"]`);
-            if (dayCell && dayCell.dataset.occupied === 'true') {
-              conflict = true;
-            }
-          });
-          
-          if (conflict) {
-            if (!confirm(`There's already a class scheduled on ${day} during this time. Would you like to replace it?`)) {
-              return;
-            }
-            
-            // Remove existing subjects in this time range for this day
-            rows.forEach(row => {
-              const dayCell = row.querySelector(`td[data-day="${day}"]`);
-              if (dayCell) {
-                dayCell.innerHTML = '';
-                dayCell.dataset.occupied = 'false';
-                dayCell.rowSpan = 1;
-              }
-            });
-          }
-          
-          // Create subject item and add it to the first row
-          const firstRow = rows[0];
-          const firstDayCell = firstRow.querySelector(`td[data-day="${day}"]`);
-          
-          if (!firstDayCell) return; // Skip if cell not found
-          
-          // Create subject item
-          const subjectItem = document.createElement('div');
-          subjectItem.className = 'subject-item';
-          subjectItem.style.backgroundColor = subjectColor;
-          
-          const subjectNameElem = document.createElement('div');
-          subjectNameElem.className = 'subject-name';
-          subjectNameElem.textContent = subject.name;
-          subjectItem.appendChild(subjectNameElem);
-          
-          const sectionElem = document.createElement('div');
-          sectionElem.className = 'section';
-          sectionElem.textContent = section;
-          subjectItem.appendChild(sectionElem);
-          
-          const profName = professor.title ? `${professor.title} ${professor.name}` : professor.name;
-          const profElem = document.createElement('div');
-          profElem.className = 'professor-info';
-          profElem.textContent = profName;
-          subjectItem.appendChild(profElem);
-          
-          // Add delete button
-          const deleteBtn = document.createElement('span');
-          deleteBtn.className = 'delete-btn';
-          deleteBtn.textContent = '×';
-          deleteBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (confirm('Remove this class from the schedule?')) {
-              // Reset all affected cells
-              rows.forEach((row, index) => {
-                if (index > 0) {
-                  // For rows after the first one, re-create the cell
-                  const newDayCell = document.createElement('td');
-                  newDayCell.dataset.day = day;
-                  newDayCell.className = 'day-cell';
-                  newDayCell.dataset.occupied = 'false';
-                  
-                  // Find the position to insert the new cell
-                  const dayIndex = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(day);
-                  const cells = Array.from(row.querySelectorAll('td'));
-                  
-                  // Find the correct position to insert
-                  let inserted = false;
-                  for (let i = 1; i < cells.length; i++) {
-                    const currentDay = cells[i].dataset.day;
-                    const currentDayIndex = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(currentDay);
-                    
-                    if (currentDayIndex > dayIndex) {
-                      row.insertBefore(newDayCell, cells[i]);
-                      inserted = true;
-                      break;
-                    }
-                  }
-                  
-                  if (!inserted) {
-                    row.appendChild(newDayCell);
-                  }
-                } else {
-                  // For the first row, just clear the content
-                  firstDayCell.innerHTML = '';
-                  firstDayCell.dataset.occupied = 'false';
-                  firstDayCell.rowSpan = 1;
-                }
-              });
-            }
-          });
-          
-          subjectItem.appendChild(deleteBtn);
-          firstDayCell.appendChild(subjectItem);
-          firstDayCell.dataset.occupied = 'true';
-          
-          // Set rowspan to cover multiple time slots and remove cells from subsequent rows
-          if (rows.length > 1) {
-            firstDayCell.rowSpan = rows.length;
-            
-            // Remove the cells for this day from subsequent rows
-            for (let i = 1; i < rows.length; i++) {
-              const row = rows[i];
-              const cellToRemove = row.querySelector(`td[data-day="${day}"]`);
-              if (cellToRemove) {
-                cellToRemove.remove();
-              }
-            }
-          }
-        });
-        
-        // Close the modal after adding
-        closeModal(addClassModal);
-        
-        // Reset form fields
-        document.getElementById('section-input').value = '';
-        subjectSelect.selectedIndex = 0;
-        professorSelect.selectedIndex = 0;
-        startHourSelect.selectedIndex = 0;
-        startMinuteSelect.selectedIndex = 0;
-        endHourSelect.selectedIndex = 0;
-        endMinuteSelect.selectedIndex = 0;
-        document.querySelectorAll('#add-class-modal .day-checkboxes input:checked').forEach(checkbox => {
-          checkbox.checked = false;
-        });
       }
+
+      // Get all meeting time sections (including the original and additional ones)
+      const meetingSections = [
+          { // Original section
+              startHour: document.getElementById('start-hour').value,
+              startMinute: document.getElementById('start-minute').value,
+              endHour: document.getElementById('end-hour').value,
+              endMinute: document.getElementById('end-minute').value,
+              days: Array.from(document.querySelectorAll('#add-class-modal > .modal-content > .form-group .day-checkboxes input:checked')).map(cb => cb.value)
+          },
+          // Additional sections
+          ...Array.from(document.querySelectorAll('.meeting-time-section')).map(section => ({
+              startHour: section.querySelector('.start-hour').value,
+              startMinute: section.querySelector('.start-minute').value,
+              endHour: section.querySelector('.end-hour').value,
+              endMinute: section.querySelector('.end-minute').value,
+              days: Array.from(section.querySelectorAll('.day-checkboxes input:checked')).map(cb => cb.value)
+          }))
+      ];
+
+      // Validate each meeting section
+      for (const section of meetingSections) {
+          if (!section.startHour || !section.startMinute || !section.endHour || !section.endMinute) {
+              alert('Please select both start and end times for all meeting sections.');
+              return;
+          }
+
+          if (section.days.length === 0) {
+              alert('Please select at least one day for all meeting sections.');
+              return;
+          }
+
+          const startTime = parseInt(section.startHour) * 60 + parseInt(section.startMinute);
+          const endTime = parseInt(section.endHour) * 60 + parseInt(section.endMinute);
+
+          if (startTime >= endTime) {
+              alert('End time must be after start time for all meeting sections.');
+              return;
+          }
+
+          // Process each day for this section
+          for (const day of section.days) {
+              const rows = Array.from(scheduleBody.querySelectorAll('tr')).filter(row => {
+                  const rowTimeValue = parseInt(row.dataset.timeValue);
+                  return rowTimeValue >= startTime && rowTimeValue < endTime;
+              }).sort((a, b) => parseInt(a.dataset.timeValue) - parseInt(b.dataset.timeValue));
+
+              if (rows.length === 0) continue;
+
+              // Check for conflicts
+              let conflict = false;
+              rows.forEach(row => {
+                  const dayCell = row.querySelector(`td[data-day="${day}"]`);
+                  if (dayCell && dayCell.dataset.occupied === 'true') {
+                      conflict = true;
+                  }
+              });
+
+              if (conflict) {
+                  if (!confirm(`There's already a class scheduled on ${day} during this time. Would you like to replace it?`)) {
+                      continue;
+                  }
+                  // Remove existing subjects
+                  rows.forEach(row => {
+                      const dayCell = row.querySelector(`td[data-day="${day}"]`);
+                      if (dayCell) {
+                          dayCell.innerHTML = '';
+                          dayCell.dataset.occupied = 'false';
+                          dayCell.rowSpan = 1;
+                      }
+                  });
+              }
+
+              // Add the subject to the schedule
+              const firstRow = rows[0];
+              const firstDayCell = firstRow.querySelector(`td[data-day="${day}"]`);
+              if (!firstDayCell) continue;
+
+              const subjectItem = createSubjectItem(subject, professor, document.getElementById('section-input').value.trim(), subjectColor, maxStudents, roomId);
+              firstDayCell.appendChild(subjectItem);
+              firstDayCell.dataset.occupied = 'true';
+
+              // Handle rowspan
+              if (rows.length > 1) {
+                  firstDayCell.rowSpan = rows.length;
+                  for (let i = 1; i < rows.length; i++) {
+                      const cellToRemove = rows[i].querySelector(`td[data-day="${day}"]`);
+                      if (cellToRemove) cellToRemove.remove();
+                  }
+              }
+          }
+      }
+
+      // Close modal and reset form
+      closeModal(addClassModal);
+      resetAddClassForm();
+  }
       
       // Function to add a new subject
       function addSubject() {
@@ -1183,6 +1128,145 @@
       
       // Initialize everything when the DOM is loaded
       init();
+
+     // Add meeting time button functionality
+document.getElementById('add-meeting-time-btn').addEventListener('click', function(e) {
+  e.preventDefault();
+  
+  const meetingTimeSection = document.createElement('div');
+  meetingTimeSection.className = 'meeting-time-section';
+  
+  meetingTimeSection.innerHTML = `
+    <button type="button" class="cancel-btn" style="margin-left: auto; margin-bottom: 10px;">Remove</button>
+    <div class="form-group">
+      <label>Days</label>
+      <div class="day-checkboxes">
+        <label class="day-checkbox-label"><input type="checkbox" value="Monday">Mon</label>
+        <label class="day-checkbox-label"><input type="checkbox" value="Tuesday">Tue</label>
+        <label class="day-checkbox-label"><input type="checkbox" value="Wednesday">Wed</label>
+        <label class="day-checkbox-label"><input type="checkbox" value="Thursday">Thu</label>
+        <label class="day-checkbox-label"><input type="checkbox" value="Friday">Fri</label>
+        <label class="day-checkbox-label"><input type="checkbox" value="Saturday">Sat</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Start Time</label>
+      <div class="time-inputs">
+        <select class="start-hour" required>
+          <option value="" disabled selected>Hour</option>
+        </select>
+        <select class="start-minute" required>
+          <option value="" disabled selected>Minute</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>End Time</label>
+      <div class="time-inputs">
+        <select class="end-hour" required>
+          <option value="" disabled selected>Hour</option>
+        </select>
+        <select class="end-minute" required>
+          <option value="" disabled selected>Minute</option>
+        </select>
+      </div>
+    </div>
+    <hr style="margin: 20px 0;">
+  `;
+
+  // Add event listener for remove button
+  const removeBtn = meetingTimeSection.querySelector('.cancel-btn');
+  removeBtn.addEventListener('click', function() {
+    meetingTimeSection.remove();
+  });
+
+  // Get all time selects in this section
+  const startHourSelect = meetingTimeSection.querySelector('.start-hour');
+  const startMinuteSelect = meetingTimeSection.querySelector('.start-minute');
+  const endHourSelect = meetingTimeSection.querySelector('.end-hour');
+  const endMinuteSelect = meetingTimeSection.querySelector('.end-minute');
+
+  // Populate hours (7:00 - 20:00)
+  for (let i = 7; i < 21; i++) {
+    const hourValue = i.toString().padStart(2, '0');
+    startHourSelect.add(new Option(hourValue, hourValue));
+    endHourSelect.add(new Option(hourValue, hourValue));
+  }
+
+  // Populate minutes (00, 15, 30, 45)
+  ['00', '15', '30', '45'].forEach(minute => {
+    startMinuteSelect.add(new Option(minute, minute));
+    endMinuteSelect.add(new Option(minute, minute));
+  });
+
+  // Insert the new section before the Add Meeting Time button
+  const addButton = document.getElementById('add-meeting-time-btn');
+  addButton.parentNode.insertBefore(meetingTimeSection, addButton);
+});
+
+// Helper function to create subject item
+function createSubjectItem(subject, professor, section, subjectColor, maxStudents, roomId) {
+    const subjectItem = document.createElement('div');
+    subjectItem.className = 'subject-item';
+    subjectItem.style.backgroundColor = subjectColor;
+
+    const subjectName = document.createElement('div');
+    subjectName.className = 'subject-name';
+    subjectName.textContent = subject.name;
+    subjectItem.appendChild(subjectName);
+
+    const sectionInfo = document.createElement('div');
+    sectionInfo.className = 'section';
+    sectionInfo.textContent = section; // Use the section parameter directly
+    subjectItem.appendChild(sectionInfo);
+
+    const professorInfo = document.createElement('div');
+    professorInfo.className = 'professor-info';
+    professorInfo.textContent = `${professor.title} ${professor.name}`;
+    subjectItem.appendChild(professorInfo);
+
+    const roomInfo = document.createElement('div');
+    roomInfo.className = 'room-info';
+    roomInfo.textContent = `Room: ${roomId} | Max: ${maxStudents}`;
+    subjectItem.appendChild(roomInfo);
+
+    const deleteBtn = document.createElement('span');
+    deleteBtn.className = 'delete-btn';
+    deleteBtn.textContent = '×';
+    deleteBtn.onclick = function() {
+        if (confirm('Are you sure you want to delete this class?')) {
+            const cell = subjectItem.parentElement;
+            cell.innerHTML = '';
+            cell.dataset.occupied = 'false';
+            cell.rowSpan = 1;
+        }
+    };
+    subjectItem.appendChild(deleteBtn);
+
+    return subjectItem;
+}
+
+// Helper function to reset the add class form
+function resetAddClassForm() {
+    document.getElementById('section-input').value = '';
+    document.getElementById('maximum_students').value = '';
+    document.getElementById('room-select').selectedIndex = 0;
+    subjectSelect.selectedIndex = 0;
+    professorSelect.selectedIndex = 0;
+    startHourSelect.selectedIndex = 0;
+    startMinuteSelect.selectedIndex = 0;
+    endHourSelect.selectedIndex = 0;
+    endMinuteSelect.selectedIndex = 0;
+    document.getElementById('subject-color').value = '#a8e6a8';
+    
+    // Reset all day checkboxes
+    document.querySelectorAll('#add-class-modal .day-checkboxes input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = false;
+    });
+
+    // Remove all additional meeting time sections
+    document.querySelectorAll('.meeting-time-section').forEach(section => section.remove());
+}
     });
   </script>
 </body>
