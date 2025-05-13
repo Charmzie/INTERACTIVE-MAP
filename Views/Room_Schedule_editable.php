@@ -15,6 +15,81 @@
       padding: 20px;
       background-color: #f5f5f5;
 
+          .schedule-nav {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+      background: #f8f8f8;
+      padding: 8px 8px 0 8px;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .schedule-nav-tabs {
+      display: flex;
+      flex-grow: 1;
+      gap: 4px;
+      overflow-x: auto;
+      padding-bottom: 1px;
+    }
+
+    .schedule-nav-tab {
+      padding: 8px 20px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-bottom: none;
+      border-radius: 8px 8px 0 0;
+      cursor: pointer;
+      position: relative;
+      bottom: -1px;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .schedule-nav-tab.active {
+      background: #fff;
+      border-bottom: 1px solid #fff;
+      font-weight: bold;
+    }
+
+    .schedule-nav-tab .close-tab {
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+      text-align: center;
+      border-radius: 50%;
+      background: #eee;
+      color: #666;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .schedule-nav-tab .close-tab:hover {
+      background: #ddd;
+      color: #333;
+    }
+
+    .add-schedule-btn {
+      padding: 4px 8px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 8px;
+      font-size: 20px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .add-schedule-btn:hover {
+      background: #45a049;
+    }
+
     }
     .container {
       max-width: 1200px;
@@ -67,6 +142,7 @@
       height: 100px; /* Set a fixed height for consistency */
       position: relative; /* For absolute positioning of subject-item */
     }
+    
 
     .schedule-table th, .schedule-table td {
       border: 1px solid #ddd;
@@ -129,10 +205,28 @@
       font-size: 12px;
       cursor: pointer;
     }
+
     .controls {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    margin-bottom: 40px; /* Increased margin-bottom for more space */
+    }bottom: 20px;
+    
+
+        button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #45a049;
     }
     
     /* Modal Styles */
@@ -370,7 +464,7 @@
 </head>
 <body>
   <div class="container">
-    <img src="../resources/CDM-Logo.png"  alt="CDM Logo" width="100" height="100">
+        <img src="../resources/CDM-Logo.png" alt="CDM Logo" width="100" height="100">
     <h1>COLEGIO DE MUNTINLUPA</h1>
     <h2>Schedule Maker: Editable</h2>
     
@@ -378,6 +472,14 @@
       <button id="add-class-btn" class="add-class-btn">Add Class</button>
       <button id="manage-subjects-btn">Manage Subjects</button>
       <button id="manage-professors-btn">Manage Professors</button>
+    </div>
+
+        
+    <div class="schedule-nav">
+      <div class="schedule-nav-tabs" id="schedule-tabs">
+        <!-- Initial tab removed -->
+      </div>
+      <button class="add-schedule-btn" id="add-schedule-btn">+</button>
     </div>
     
     <div id="schedule-container">
@@ -404,6 +506,7 @@
             <button id="clear-schedule">Clear Schedule</button>
             <button id="print-schedule">Print Schedule</button>
             <button id="save-schedule">Save Schedule</button>
+             <button id="add-schedule">Add Schedule</button>
       </div>
 
   <!-- Add Class Modal -->
@@ -615,18 +718,275 @@
   
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Initialize data structures
-      let subjects = [
-        { id: 1, name: 'Mathematics', code: 'MATH101' },
-        { id: 2, name: 'Physics', code: 'PHYS101' },
-        { id: 3, name: 'Programming', code: 'CS101' }
-      ];
+  // Initialize data structures
+  let subjects = [
+    { id: 1, name: 'Mathematics', code: 'MATH101' },
+    { id: 2, name: 'Physics', code: 'PHYS101' },
+    { id: 3, name: 'Programming', code: 'CS101' }
+  ];
+  
+  let professors = [
+    { id: 1, name: 'John Smith', title: 'Dr.' },
+    { id: 2, name: 'Maria Garcia', title: 'Prof.' }
+  ];
+
+  // Room scheduling state management
+  const scheduleState = {
+    rooms: {},
+    currentRoom: null,
+    addRoom(roomName) {
+      if (!this.rooms[roomName]) {
+        this.rooms[roomName] = {
+          schedule: '',
+          isActive: false
+        };
+      }
+    },
+    setCurrentRoom(roomName) {
+      if (this.currentRoom) {
+        this.rooms[this.currentRoom].schedule = document.getElementById('schedule-body').innerHTML;
+        this.rooms[this.currentRoom].isActive = false;
+      }
+      this.currentRoom = roomName;
+      if (this.rooms[roomName]) {
+        this.rooms[roomName].isActive = true;
+      }
+    },
+    getSchedule(roomName) {
+      return this.rooms[roomName]?.schedule || '';
+    }
+  };
+
+  // Tab management functions
+  function createTab(roomName) {
+    const tab = document.createElement('div');
+    tab.className = 'schedule-nav-tab';
+    tab.innerHTML = `
+      ${roomName}
+      <span class="close-tab">×</span>
+    `;
+
+    const closeBtn = tab.querySelector('.close-tab');
+    closeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const tabs = document.querySelectorAll('.schedule-nav-tab');
+      if (tabs.length > 1) {
+        if (scheduleState.currentRoom === roomName) {
+          const nextTab = tab.nextElementSibling || tab.previousElementSibling;
+          nextTab.click();
+        }
+        delete scheduleState.rooms[roomName];
+        tab.remove();
+      }
+    });
+
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.schedule-nav-tab').forEach(t => 
+        t.classList.remove('active')
+      );
+      tab.classList.add('active');
       
-      let professors = [
-        { id: 1, name: 'John Smith', title: 'Dr.' },
-        { id: 2, name: 'Maria Garcia', title: 'Prof.' },
-        { id: 3, name: 'Robert Johnson', title: 'Engr.' }
-      ];
+      scheduleState.setCurrentRoom(roomName);
+      const savedSchedule = scheduleState.getSchedule(roomName);
+      if (savedSchedule) {
+        document.getElementById('schedule-body').innerHTML = savedSchedule;
+      } else {
+        generateTimeSlots(); // Reset to empty schedule
+      }
+    });
+
+    return tab;
+  }
+
+  // Create room selection modal
+  const roomModal = document.createElement('div');
+  roomModal.className = 'modal';
+  roomModal.innerHTML = `
+    <div class="modal-content" style="max-width: 400px;">
+      <div class="modal-header">
+        <h3>Select Room</h3>
+        <span class="close-modal">&times;</span>
+      </div>
+      <div class="form-group">
+        <label for="room-name-select">Room</label>
+        <select id="room-name-select" required>
+          <option value="" disabled selected>Select Room ID</option>
+                <option value="410">410</option>
+                <option value="411">411</option>
+                <option value="412">412</option>
+                <option value="413">413</option>
+                <option value="510">510</option>
+                <option value="511">511</option>
+                <option value="512">512</option>
+                <option value="513">513</option>
+                <option value="610">610</option>
+                <option value="611">611</option>
+                <option value="612">612</option>
+                <option value="613">613</option>
+                <option value="CE1">CE1</option>
+                <option value="CE2">CE2</option>
+                <option value="CPE1">CPE1</option>
+                <option value="DRAWING ROOM">DRAWING ROOM</option>
+                <option value="ECE1">ECE1</option>
+                <option value="ECE2">ECE2</option>
+                <option value="EE2">EE2</option>
+                <option value="ME1">ME1</option>
+                <option value="ME2">ME2</option>
+                <option value="MULTI-PURPOSE HALL">MULTI-PURPOSE HALL</option>
+                <option value="ONLINE">ONLINE</option>
+                <option value="TBA">TBA</option>
+                <option value="AVR">AVR</option>
+                <option value="SEMINAR ROOM">SEMINAR ROOM</option>
+                <option value="CE Laboratory">CE Laboratory</option>
+                <option value="Chemistry Laboratory">Chemistry Laboratory</option>
+                <option value="Computer Laboratory 1">Computer Laboratory 1</option>
+                <option value="Computer Laboratory 2">Computer Laboratory 2</option>
+                <option value="CPE Laboratory">CPE Laboratory</option>
+                <option value="EE Laboratory">EE Laboratory</option>
+                <option value="ECE Laboratory">ECE Laboratory</option>
+                <option value="ME Laboratory">ME Laboratory</option>
+                <option value="Physics Laboratory">Physics Laboratory</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button id="cancel-room-select" class="cancel-btn">Cancel</button>
+        <button id="confirm-room-select">Add Room</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(roomModal);
+
+  // Add room button functionality
+  document.getElementById('add-schedule-btn').addEventListener('click', function() {
+    roomModal.style.display = 'block';
+  });
+
+  // Room selection modal functionality
+  document.getElementById('confirm-room-select').addEventListener('click', function() {
+    const select = document.getElementById('room-name-select');
+    const roomName = select.value;
+    
+    if (!roomName) return;
+    
+    if (scheduleState.rooms[roomName]) {
+      alert('Room already exists!');
+      return;
+    }
+
+    scheduleState.addRoom(roomName);
+    const tab = createTab(roomName);
+    document.getElementById('schedule-tabs').appendChild(tab);
+    tab.click();
+    
+    // Reset and close modal
+    select.selectedIndex = 0;
+    roomModal.style.display = 'none';
+  });
+
+  // Close modal functionality
+  document.getElementById('cancel-room-select').addEventListener('click', function() {
+    document.getElementById('room-name-select').selectedIndex = 0;
+    roomModal.style.display = 'none';
+  });
+
+  roomModal.querySelector('.close-modal').addEventListener('click', function() {
+    document.getElementById('room-name-select').selectedIndex = 0;
+    roomModal.style.display = 'none';
+  });
+
+  // Save all schedules before unloading
+  window.addEventListener('beforeunload', function() {
+    if (scheduleState.currentRoom) {
+      scheduleState.rooms[scheduleState.currentRoom].schedule = 
+        document.getElementById('schedule-body').innerHTML;
+    }
+    localStorage.setItem('roomSchedules', JSON.stringify(scheduleState.rooms));
+  });
+
+  // Load saved schedules
+  try {
+    const savedSchedules = localStorage.getItem('roomSchedules');
+    if (savedSchedules) {
+      const schedules = JSON.parse(savedSchedules);
+      Object.keys(schedules).forEach(roomName => {
+        scheduleState.rooms[roomName] = schedules[roomName];
+        const tab = createTab(roomName);
+        document.getElementById('schedule-tabs').appendChild(tab);
+      });
+      
+      // Activate the first tab if exists
+      const firstTab = document.querySelector('.schedule-nav-tab');
+      if (firstTab) {
+        firstTab.click();
+      }
+    }
+  } catch (error) {
+    console.error('Error loading saved schedules:', error);
+  }
+
+      // Add click handler for the add schedule button
+      document.getElementById('add-schedule-btn').addEventListener('click', function() {
+        const roomName = prompt('Enter room name:');
+        if (roomName) {
+          // Save current schedule before switching
+          saveCurrentSchedule();
+
+          // Create new tab
+          const tab = document.createElement('div');
+          tab.className = 'schedule-nav-tab';
+          tab.setAttribute('data-room', roomName);
+          
+          // Add room name and close button
+          tab.innerHTML = `
+            ${roomName}
+            <span class="close-tab">&times;</span>
+          `;
+          
+          // Remove active class from all tabs
+          document.querySelectorAll('.schedule-nav-tab').forEach(t => {
+            t.classList.remove('active');
+          });
+          
+          // Add active class to new tab
+          tab.classList.add('active');
+          currentRoom = roomName;
+          
+          // Add tab click handler
+          tab.addEventListener('click', function() {
+            if (!tab.classList.contains('active')) {
+              saveCurrentSchedule();
+              document.querySelectorAll('.schedule-nav-tab').forEach(t => {
+                t.classList.remove('active');
+              });
+              tab.classList.add('active');
+              currentRoom = roomName;
+              loadSchedule(roomName);
+            }
+          });
+          
+          // Add close functionality
+          const closeBtn = tab.querySelector('.close-tab');
+          closeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (document.querySelectorAll('.schedule-nav-tab').length > 1) {
+              if (tab.classList.contains('active')) {
+                const firstTab = document.querySelector('.schedule-nav-tab:not(.active)');
+                if (firstTab) {
+                  firstTab.classList.add('active');
+                  currentRoom = firstTab.getAttribute('data-room');
+                  loadSchedule(currentRoom);
+                }
+              }
+              delete schedules[roomName];
+              tab.remove();
+            }
+          });
+          
+          // Add tab to the container
+          document.getElementById('schedule-tabs').appendChild(tab);
+          loadSchedule(roomName);
+        }
+      });
       
       // DOM Element references
       const scheduleBody = document.getElementById('schedule-body');
