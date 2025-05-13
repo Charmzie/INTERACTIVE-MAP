@@ -345,7 +345,7 @@
 </head>
 <body>
   <div class="container">
-    <img src="../resources/CDM-Logo.png"  alt="CDM Logo" width="100" height="100">
+    <img src="/api/placeholder/100/100" alt="CDM Logo" width="100" height="100">
     <h1>COLEGIO DE MUNTINLUPA</h1>
     <h2>Schedule Maker: Editable</h2>
     
@@ -353,6 +353,9 @@
       <button id="add-class-btn" class="add-class-btn">Add Class</button>
       <button id="manage-subjects-btn">Manage Subjects</button>
       <button id="manage-professors-btn">Manage Professors</button>
+      <button id="clear-schedule">Clear Schedule</button>
+      <button id="print-schedule">Print Schedule</button>
+      <button id="save-schedule">Save Schedule</button>
     </div>
     
     <div id="schedule-container">
@@ -375,221 +378,163 @@
     </div>
   </div>
   
-      <div>      
-            <button id="clear-schedule">Clear Schedule</button>
-            <button id="print-schedule">Print Schedule</button>
-            <button id="save-schedule">Save Schedule</button>
-      </div>
-
   <!-- Add Class Modal -->
-    <form action = "saved_schedule.php" method="POST">
-      <div id="add-class-modal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3>Add Class</h3>
-            <span class="close-modal">&times;</span>
-          </div>
+  <div id="add-class-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Add Class</h3>
+        <span class="close-modal">&times;</span>
+      </div>
+      <div class="form-group">
+        <label for="subject-select">Subject</label>
+        <select id="subject-select" required>
+          <option value="" disabled selected>Select a subject</option>
 
-          <div class="form-group">
-            <label for="subject-select">Subject</label>
-            <select id="subject-select" required>
-              <option value="" disabled selected>Select a subject</option>
-            </select>
-            <button id="add-new-subject-btn" class="add-new-button">Add New Subject</button>
-          </div>
-
-          <div class="form-group">
-            <label for="professor-select">Professor</label>
-            <select id="professor-select" required>
-              <option value="" disabled selected>Select a professor</option>
-            </select>
-            <button id="add-new-professor-btn" class="add-new-button">Add New Professor</button>
-          </div>
-
-          <div class="form-group">
-            <label for="section-input">Section</label>
-            <input type="text" id="section-input" placeholder="e.g., CE3B" required>
-          </div>
-
-          <div class="form-group">
-            <label>Days</label>
-            <div class="day-checkboxes">
-              <label class="day-checkbox-label"><input type="checkbox" value="Monday">Mon</label>
-              <label class="day-checkbox-label"><input type="checkbox" value="Tuesday">Tue</label>
-              <label class="day-checkbox-label"><input type="checkbox" value="Wednesday">Wed</label>
-              <label class="day-checkbox-label"><input type="checkbox" value="Thursday">Thu</label>
-              <label class="day-checkbox-label"><input type="checkbox" value="Friday">Fri</label>
-              <label class="day-checkbox-label"><input type="checkbox" value="Saturday">Sat</label>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="max-students-input">Maximum Students: </label>
-            <input type="number" id="maximum_students" placeholder="40" required max="45">
-          </div>
-
-          <div class="form-group">
-            <label>Start Time</label>
-            <div class="time-inputs">
-              <select id="start-hour" required>
-                <option value="" disabled selected>Hour</option>
-              </select>
-              <select id="start-minute" required>
-                <option value="" disabled selected>Minute</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>End Time</label>
-            <div class="time-inputs">
-              <select id="end-hour" required>
-                <option value="" disabled selected>Hour</option>
-              </select>
-              <select id="end-minute" required>
-                <option value="" disabled selected>Minute</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="subject-color">Color</label>
-            <input type="color" id="subject-color" class="color-picker" value="#a8e6a8">
-          </div>
-
-          <div class="form-room">
-            <label for="room-select">Room</label>
-            <select id="room-select" required>
-                <option value="" disabled selected>Select a Room</option>
-                <option value="">Select Room ID</option>
-                <option value="410">410</option>
-                <option value="411">411</option>
-                <option value="412">412</option>
-                <option value="413">413</option>
-                <option value="510">510</option>
-                <option value="511">511</option>
-                <option value="512">512</option>
-                <option value="513">513</option>
-                <option value="610">610</option>
-                <option value="611">611</option>
-                <option value="612">612</option>
-                <option value="613">613</option>
-                <option value="CE1">CE1</option>
-                <option value="CE2">CE2</option>
-                <option value="CPE1">CPE1</option>
-                <option value="DRAWING ROOM">DRAWING ROOM</option>
-                <option value="ECE1">ECE1</option>
-                <option value="ECE2">ECE2</option>
-                <option value="EE2">EE2</option>
-                <option value="ME1">ME1</option>
-                <option value="ME2">ME2</option>
-                <option value="MULTI-PURPOSE HALL">MULTI-PURPOSE HALL</option>
-                <option value="ONLINE">ONLINE</option>
-                <option value="TBA">TBA</option>
-                <option value="AVR">AVR</option>
-                <option value="SEMINAR ROOM">SEMINAR ROOM</option>
-                <option value="CE Laboratory">CE Laboratory</option>
-                <option value="Chemistry Laboratory">Chemistry Laboratory</option>
-                <option value="Computer Laboratory 1">Computer Laboratory 1</option>
-                <option value="Computer Laboratory 2">Computer Laboratory 2</option>
-                <option value="CPE Laboratory">CPE Laboratory</option>
-                <option value="EE Laboratory">EE Laboratory</option>
-                <option value="ECE Laboratory">ECE Laboratory</option>
-                <option value="ME Laboratory">ME Laboratory</option>
-                <option value="Physics Laboratory">Physics Laboratory</option>
-            </select>
-          </div>
-
-          <div class="modal-footer">
-            <button id="cancel-add-class" class="cancel-btn">Cancel</button>
-            <button id="submit-add-class">Add Class</button>
-          </div>
+        </select>
+        <button id="add-new-subject-btn" class="add-new-button">Add New Subject</button>
+      </div>
+      <div class="form-group">
+        <label for="professor-select">Professor</label>
+        <select id="professor-select" required class="form-control">
+          <option value="" disabled selected>Select a professor</option>
+        </select>
+        <button id="add-new-professor-btn" class="add-new-button">Add New Professor</button>
+      </div>
+      <div class="form-group">
+        <label for="section-input">Section</label>
+        <input type="text" id="section-input" placeholder="e.g., CE3B" required>
+      </div>
+      <div class="form-group">
+        <label>Days</label>
+        <div class="day-checkboxes">
+          <label class="day-checkbox-label"><input type="checkbox" value="Monday">Mon</label>
+          <label class="day-checkbox-label"><input type="checkbox" value="Tuesday">Tue</label>
+          <label class="day-checkbox-label"><input type="checkbox" value="Wednesday">Wed</label>
+          <label class="day-checkbox-label"><input type="checkbox" value="Thursday">Thu</label>
+          <label class="day-checkbox-label"><input type="checkbox" value="Friday">Fri</label>
+          <label class="day-checkbox-label"><input type="checkbox" value="Saturday">Sat</label>
         </div>
       </div>
-      
-      <!-- Add Subject Modal -->
-      <div id="add-subject-modal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3>Add New Subject</h3>
-            <span class="close-modal">&times;</span>
-          </div>
-          <div class="form-group">
-            <label for="new-subject-name">Subject Name</label>
-            <input type="text" id="new-subject-name" placeholder="e.g., Structural Theory" required>
-          </div>
-          <div class="form-group">
-            <label for="subject-code">Subject Code</label>
-            <input type="text" id="subject-code" placeholder="e.g., STRC101" required>
-          </div>
-          <div class="modal-footer">
-            <button id="cancel-add-subject" class="cancel-btn">Cancel</button>
-            <button id="submit-add-subject">Add Subject</button>
-          </div>
+      <div class="form-group">
+        <label>Start Time</label>
+        <div class="time-inputs">
+          <select id="start-hour" required>
+            <option value="" disabled selected>Hour</option>
+          </select>
+          <select id="start-minute" required>
+            <option value="" disabled selected>Minute</option>
+          </select>
         </div>
       </div>
-      
-      <!-- Add Professor Modal -->
-      <div id="add-professor-modal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3>Add New Professor</h3>
-            <span class="close-modal">&times;</span>
-          </div>
-          <div class="form-group">
-            <label for="new-professor-name">Professor Name</label>
-            <input type="text" id="new-professor-name" placeholder="e.g., John Smith" required>
-          </div>
-          <div class="form-group">
-            <label for="professor-title">Title (Optional)</label>
-            <input type="text" id="professor-title" placeholder="e.g., Dr., Engr., Prof.">
-          </div>
-          <div class="modal-footer">
-            <button id="cancel-add-professor" class="cancel-btn">Cancel</button>
-            <button id="submit-add-professor">Add Professor</button>
-          </div>
+      <div class="form-group">
+        <label>End Time</label>
+        <div class="time-inputs">
+          <select id="end-hour" required>
+            <option value="" disabled selected>Hour</option>
+          </select>
+          <select id="end-minute" required>
+            <option value="" disabled selected>Minute</option>
+          </select>
         </div>
       </div>
-  </form>  
-      <!-- Manage Subjects Modal -->
-      <div id="manage-subjects-modal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3>Manage Subjects</h3>
-            <span class="close-modal">&times;</span>
-          </div>
-          <div class="manage-list" id="subjects-list">
-            <!-- Subject list items will be added here -->
-          </div>
-          <button id="add-subject-from-manage" class="add-new-button">Add New Subject</button>
-          <div class="modal-footer">
-            <button id="close-manage-subjects" class="cancel-btn">Close</button>
-          </div>
+      <div class="form-group">
+        <label for="subject-color">Color</label>
+        <input type="color" id="subject-color" class="color-picker" value="#a8e6a8">
+      </div>
+      <div class="modal-footer">
+        <button id="cancel-add-class" class="cancel-btn">Cancel</button>
+        <button id="submit-add-class">Add Class</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Subject Modal -->
+  <form action="add_subject.php" method="POST">
+    <div id="add-subject-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Add New Subject</h3>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="form-group">
+          <label for="new-subject-name">Subject Name</label>
+          <input type="text" id="new-subject-name" placeholder="e.g., Structural Theory" required>
+        </div>
+        <div class="form-group">
+          <label for="subject-code">Subject Code (Optional)</label>
+          <input type="text" id="subject-code" placeholder="e.g., STRC101">
+        </div>
+        <div class="modal-footer">
+          <button id="cancel-add-subject" class="cancel-btn">Cancel</button>
+          <button id="submit-add-subject" type="submit">Add Subject</button>
         </div>
       </div>
-      
-      <!-- Manage Professors Modal -->
-      <div id="manage-professors-modal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3>Manage Professors</h3>
-            <span class="close-modal">&times;</span>
-          </div>
-          <div class="manage-list" id="professors-list">
-            <!-- Professor list items will be added here -->
-          </div>
-          <button id="add-professor-from-manage" class="add-new-button">Add New Professor</button>
-          <div class="modal-footer">
-            <button id="close-manage-professors" class="cancel-btn">Close</button>
-          </div>
+    </div>
+  </form>
+
+  <!-- Add Professor Modal -->
+  <form action="add_professors.php" method="POST">
+    <div id="add-professor-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Add New Professor</h3>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="form-group">
+          <label for="new-professor-name">Professor Name</label>
+          <input type="text" id="new-professor-name" name="professorName" placeholder="e.g., John Smith" required>
+        </div>
+        <div class="form-group">
+          <label for="professor-title">Title (Optional)</label>
+          <input type="text" id="title" name="title" placeholder="e.g., Dr., Engr., Prof.">
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="cancel-add-professor" class="cancel-btn">Cancel</button>
+          <button type="submit" name="submit" id="submit-add-professor">Add Professor</button>
         </div>
       </div>
+    </div>
+  </form>
+
+  <!-- Manage Subjects Modal -->
+    <div id="manage-subjects-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Manage Subjects</h3>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="manage-list" id="subjects-list">
+          <!-- Subject list items will be added here -->
+        </div>
+        <button id="add-subject-from-manage" class="add-new-button">Add New Subject</button>
+        <div class="modal-footer">
+          <button id="close-manage-subjects" class="cancel-btn">Close</button>
+        </div>
+      </div>
+    </div>
+  
+  <!-- Manage Professors Modal -->
+  <div id="manage-professors-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Manage Professors</h3>
+        <span class="close-modal">&times;</span>
+      </div>
+      <div class="manage-list" id="professors-list">
+        <!-- Professor list items will be added here -->
+      </div>
+      <button id="add-professor-from-manage" class="add-new-button">Add New Professor</button>
+      <div class="modal-footer">
+        <button id="close-manage-professors" class="cancel-btn">Close</button>
+      </div>
+    </div>
+  </div>
   
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Initialize data structures
       let subjects = [
-        { id: 1, name: 'Mathematics', code: 'MATH101' },
+        { id: 1, name: 'Mathematics ', code: 'MATH101' },
         { id: 2, name: 'Physics', code: 'PHYS101' },
         { id: 3, name: 'Programming', code: 'CS101' }
       ];
@@ -599,7 +544,7 @@
         { id: 2, name: 'Maria Garcia', title: 'Prof.' },
         { id: 3, name: 'Robert Johnson', title: 'Engr.' }
       ];
-      
+
       // DOM Element references
       const scheduleBody = document.getElementById('schedule-body');
       const subjectSelect = document.getElementById('subject-select');
@@ -913,7 +858,11 @@
           checkbox.checked = false;
         });
       }
-      
+      //Function to add a new subject  
+
+
+
+
       // Function to add a new subject
       function addSubject() {
         const subjectName = document.getElementById('new-subject-name').value.trim();
