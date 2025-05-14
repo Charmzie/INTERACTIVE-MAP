@@ -71,26 +71,6 @@
       color: #333;
     }
 
-    .add-schedule-btn {
-      padding: 4px 8px;
-      background: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-left: 8px;
-      font-size: 20px;
-      line-height: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .add-schedule-btn:hover {
-      background: #45a049;
-    }
-
-    }
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -479,7 +459,7 @@
       <div class="schedule-nav-tabs" id="schedule-tabs">
         <!-- Initial tab removed -->
       </div>
-      <button class="add-schedule-btn" id="add-schedule-btn">+</button>
+      <button class="add-schedule-bttn" id="add-schedule-bttn">+</button>
     </div>
     
     <div id="schedule-container">
@@ -506,7 +486,6 @@
             <button id="clear-schedule">Clear Schedule</button>
             <button id="print-schedule">Print Schedule</button>
             <button id="save-schedule">Save Schedule</button>
-             <button id="add-schedule">Add Schedule</button>
       </div>
 
   <!-- Add Class Modal -->
@@ -857,7 +836,7 @@
   document.body.appendChild(roomModal);
 
   // Add room button functionality
-  document.getElementById('add-schedule-btn').addEventListener('click', function() {
+  document.getElementById('add-schedule-bttn').addEventListener('click', function() {
     roomModal.style.display = 'block';
   });
 
@@ -923,70 +902,6 @@
   } catch (error) {
     console.error('Error loading saved schedules:', error);
   }
-
-      // Add click handler for the add schedule button
-      document.getElementById('add-schedule-btn').addEventListener('click', function() {
-        const roomName = prompt('Enter room name:');
-        if (roomName) {
-          // Save current schedule before switching
-          saveCurrentSchedule();
-
-          // Create new tab
-          const tab = document.createElement('div');
-          tab.className = 'schedule-nav-tab';
-          tab.setAttribute('data-room', roomName);
-          
-          // Add room name and close button
-          tab.innerHTML = `
-            ${roomName}
-            <span class="close-tab">&times;</span>
-          `;
-          
-          // Remove active class from all tabs
-          document.querySelectorAll('.schedule-nav-tab').forEach(t => {
-            t.classList.remove('active');
-          });
-          
-          // Add active class to new tab
-          tab.classList.add('active');
-          currentRoom = roomName;
-          
-          // Add tab click handler
-          tab.addEventListener('click', function() {
-            if (!tab.classList.contains('active')) {
-              saveCurrentSchedule();
-              document.querySelectorAll('.schedule-nav-tab').forEach(t => {
-                t.classList.remove('active');
-              });
-              tab.classList.add('active');
-              currentRoom = roomName;
-              loadSchedule(roomName);
-            }
-          });
-          
-          // Add close functionality
-          const closeBtn = tab.querySelector('.close-tab');
-          closeBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (document.querySelectorAll('.schedule-nav-tab').length > 1) {
-              if (tab.classList.contains('active')) {
-                const firstTab = document.querySelector('.schedule-nav-tab:not(.active)');
-                if (firstTab) {
-                  firstTab.classList.add('active');
-                  currentRoom = firstTab.getAttribute('data-room');
-                  loadSchedule(currentRoom);
-                }
-              }
-              delete schedules[roomName];
-              tab.remove();
-            }
-          });
-          
-          // Add tab to the container
-          document.getElementById('schedule-tabs').appendChild(tab);
-          loadSchedule(roomName);
-        }
-      });
       
       // DOM Element references
       const scheduleBody = document.getElementById('schedule-body');
