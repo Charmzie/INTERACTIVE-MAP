@@ -59,15 +59,6 @@
       table-layout: fixed; /* Distributes columns evenly across the table */
     }
 
-    .schedule-table td {
-      border: 1px solid #ddd;
-      padding: 0; /* Remove padding */
-      text-align: center;
-      vertical-align: top;
-      height: 100px; /* Set a fixed height for consistency */
-      position: relative; /* For absolute positioning of subject-item */
-    }
-
     .schedule-table th, .schedule-table td {
       border: 1px solid #ddd;
       padding: 10px; /* Adjust for better spacing */
@@ -87,17 +78,14 @@
     }
     .subject-item {
       background-color: #a8e6a8;
+      border-radius: 4px;
       padding: 8px;
       text-align: center;
-      position: absolute; /* Change to absolute positioning */
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0; /* Make it fill the entire cell */
+      height: 100%;
+      position: relative;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      border-radius: 0; /* Remove border radius for full coverage */
     }
     .subject-name {
       font-weight: bold;
@@ -249,19 +237,6 @@
     .cancel-btn:hover {
       background-color: #d32f2f;
     }
-
-        .meeting-time-section {
-      border: 1px solid #ddd;
-      padding: 15px;
-      margin: 15px 0;
-      border-radius: 4px;
-      background-color: #f9f9f9;
-    }
-
-    .meeting-time-section .cancel-btn {
-      padding: 5px 10px;
-      font-size: 14px;
-    }
     
     .time-inputs {
       display: flex;
@@ -404,223 +379,163 @@
   </div>
   
   <!-- Add Class Modal -->
-    <form action = "saved_schedule.php" method="POST">
-      <div id="add-class-modal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3>Add Class</h3>
-            <span class="close-modal">&times;</span>
-          </div>
+  <div id="add-class-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Add Class</h3>
+        <span class="close-modal">&times;</span>
+      </div>
+      <div class="form-group">
+        <label for="subject-select">Subject</label>
+        <select id="subject-select" required>
+          <option value="" disabled selected>Select a subject</option>
 
-          <div class="form-group">
-            <label for="subject-select">Subject</label>
-            <select id="subject-select" required>
-              <option value="" disabled selected>Select a subject</option>
-            </select>
-            <button id="add-new-subject-btn" class="add-new-button">Add New Subject</button>
-          </div>
-
-          <div class="form-group">
-            <label for="professor-select">Professor</label>
-            <select id="professor-select" required>
-              <option value="" disabled selected>Select a professor</option>
-            </select>
-            <button id="add-new-professor-btn" class="add-new-button">Add New Professor</button>
-          </div>
-
-          <div class="form-group">
-            <label for="section-input">Section</label>
-            <input type="text" id="section-input" placeholder="e.g., CE3B" required>
-          </div>
-
-          <div class="form-group">
-            <label>Days</label>
-            <div class="day-checkboxes">
-              <label class="day-checkbox-label"><input type="checkbox" value="Monday">Mon</label>
-              <label class="day-checkbox-label"><input type="checkbox" value="Tuesday">Tue</label>
-              <label class="day-checkbox-label"><input type="checkbox" value="Wednesday">Wed</label>
-              <label class="day-checkbox-label"><input type="checkbox" value="Thursday">Thu</label>
-              <label class="day-checkbox-label"><input type="checkbox" value="Friday">Fri</label>
-              <label class="day-checkbox-label"><input type="checkbox" value="Saturday">Sat</label>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="max-students-input">Maximum Students: </label>
-            <input type="number" id="maximum_students" placeholder="40" required max="45">
-          </div>
-
-          <div class="form-group">
-            <label>Start Time</label>
-            <div class="time-inputs">
-              <select id="start-hour" required>
-                <option value="" disabled selected>Hour</option>
-              </select>
-              <select id="start-minute" required>
-                <option value="" disabled selected>Minute</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>End Time</label>
-            <div class="time-inputs">
-              <select id="end-hour" required>
-                <option value="" disabled selected>Hour</option>
-              </select>
-              <select id="end-minute" required>
-                <option value="" disabled selected>Minute</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="subject-color">Color</label>
-            <input type="color" id="subject-color" class="color-picker" value="#a8e6a8">
-          </div>
-
-          <div class="form-room">
-            <label for="room-select">Room</label>
-            <select id="room-select" required>
-                <option value="" disabled selected>Select a Room</option>
-                <option value="">Select Room ID</option>
-                <option value="410">410</option>
-                <option value="411">411</option>
-                <option value="412">412</option>
-                <option value="413">413</option>
-                <option value="510">510</option>
-                <option value="511">511</option>
-                <option value="512">512</option>
-                <option value="513">513</option>
-                <option value="610">610</option>
-                <option value="611">611</option>
-                <option value="612">612</option>
-                <option value="613">613</option>
-                <option value="CE1">CE1</option>
-                <option value="CE2">CE2</option>
-                <option value="CPE1">CPE1</option>
-                <option value="DRAWING ROOM">DRAWING ROOM</option>
-                <option value="ECE1">ECE1</option>
-                <option value="ECE2">ECE2</option>
-                <option value="EE2">EE2</option>
-                <option value="ME1">ME1</option>
-                <option value="ME2">ME2</option>
-                <option value="MULTI-PURPOSE HALL">MULTI-PURPOSE HALL</option>
-                <option value="ONLINE">ONLINE</option>
-                <option value="TBA">TBA</option>
-                <option value="AVR">AVR</option>
-                <option value="SEMINAR ROOM">SEMINAR ROOM</option>
-                <option value="CE Laboratory">CE Laboratory</option>
-                <option value="Chemistry Laboratory">Chemistry Laboratory</option>
-                <option value="Computer Laboratory 1">Computer Laboratory 1</option>
-                <option value="Computer Laboratory 2">Computer Laboratory 2</option>
-                <option value="CPE Laboratory">CPE Laboratory</option>
-                <option value="EE Laboratory">EE Laboratory</option>
-                <option value="ECE Laboratory">ECE Laboratory</option>
-                <option value="ME Laboratory">ME Laboratory</option>
-                <option value="Physics Laboratory">Physics Laboratory</option>
-            </select>
-          </div>
-
-          <div class="modal-footer">
-            <button id="cancel-add-class" class="cancel-btn">Cancel</button>
-            <button id="submit-add-class">Add Class</button>
-          </div>
+        </select>
+        <button id="add-new-subject-btn" class="add-new-button">Add New Subject</button>
+      </div>
+      <div class="form-group">
+        <label for="professor-select">Professor</label>
+        <select id="professor-select" required class="form-control">
+          <option value="" disabled selected>Select a professor</option>
+        </select>
+        <button id="add-new-professor-btn" class="add-new-button">Add New Professor</button>
+      </div>
+      <div class="form-group">
+        <label for="section-input">Section</label>
+        <input type="text" id="section-input" placeholder="e.g., CE3B" required>
+      </div>
+      <div class="form-group">
+        <label>Days</label>
+        <div class="day-checkboxes">
+          <label class="day-checkbox-label"><input type="checkbox" value="Monday">Mon</label>
+          <label class="day-checkbox-label"><input type="checkbox" value="Tuesday">Tue</label>
+          <label class="day-checkbox-label"><input type="checkbox" value="Wednesday">Wed</label>
+          <label class="day-checkbox-label"><input type="checkbox" value="Thursday">Thu</label>
+          <label class="day-checkbox-label"><input type="checkbox" value="Friday">Fri</label>
+          <label class="day-checkbox-label"><input type="checkbox" value="Saturday">Sat</label>
         </div>
       </div>
-      
-      <!-- Add Subject Modal -->
-      <div id="add-subject-modal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3>Add New Subject</h3>
-            <span class="close-modal">&times;</span>
-          </div>
-          <div class="form-group">
-            <label for="new-subject-name">Subject Name</label>
-            <input type="text" id="new-subject-name" placeholder="e.g., Structural Theory" required>
-          </div>
-          <div class="form-group">
-            <label for="subject-code">Subject Code</label>
-            <input type="text" id="subject-code" placeholder="e.g., STRC101" required>
-          </div>
-          <div class="modal-footer">
-            <button id="cancel-add-subject" class="cancel-btn">Cancel</button>
-            <button id="submit-add-subject">Add Subject</button>
-          </div>
+      <div class="form-group">
+        <label>Start Time</label>
+        <div class="time-inputs">
+          <select id="start-hour" required>
+            <option value="" disabled selected>Hour</option>
+          </select>
+          <select id="start-minute" required>
+            <option value="" disabled selected>Minute</option>
+          </select>
         </div>
       </div>
-      
-      <!-- Add Professor Modal -->
-      <div id="add-professor-modal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3>Add New Professor</h3>
-            <span class="close-modal">&times;</span>
-          </div>
-          <div class="form-group">
-            <label for="new-professor-name">Professor Name</label>
-            <input type="text" id="new-professor-name" placeholder="e.g., John Smith" required>
-          </div>
-          <div class="form-group">
-            <label for="professor-title">Title (Optional)</label>
-            <input type="text" id="professor-title" placeholder="e.g., Dr., Engr., Prof.">
-          </div>
-          <div class="modal-footer">
-            <button id="cancel-add-professor" class="cancel-btn">Cancel</button>
-            <button id="submit-add-professor">Add Professor</button>
-          </div>
+      <div class="form-group">
+        <label>End Time</label>
+        <div class="time-inputs">
+          <select id="end-hour" required>
+            <option value="" disabled selected>Hour</option>
+          </select>
+          <select id="end-minute" required>
+            <option value="" disabled selected>Minute</option>
+          </select>
         </div>
       </div>
-  </form>  
-      <!-- Manage Subjects Modal -->
-      <div id="manage-subjects-modal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3>Manage Subjects</h3>
-            <span class="close-modal">&times;</span>
-          </div>
-          <div class="manage-list" id="subjects-list">
-            <!-- Subject list items will be added here -->
-          </div>
-          <button id="add-subject-from-manage" class="add-new-button">Add New Subject</button>
-          <div class="modal-footer">
-            <button id="close-manage-subjects" class="cancel-btn">Close</button>
-          </div>
+      <div class="form-group">
+        <label for="subject-color">Color</label>
+        <input type="color" id="subject-color" class="color-picker" value="#a8e6a8">
+      </div>
+      <div class="modal-footer">
+        <button id="cancel-add-class" class="cancel-btn">Cancel</button>
+        <button id="submit-add-class">Add Class</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Subject Modal -->
+  <form action="add_subject.php" method="POST">
+    <div id="add-subject-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Add New Subject</h3>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="form-group">
+          <label for="new-subject-name">Subject Name</label>
+          <input type="text" id="subject_title" name="subject_title" placeholder="e.g., Structural Theory" required>
+        </div>
+        <div class="form-group">
+          <label for="subject-code">Subject Code (Optional)</label>
+          <input type="text" id="subject_code" name="subject_code" placeholder="e.g., STRC101" >
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="cancel-add-subject" class="cancel-btn">Cancel</button>
+          <button type="submit" name="submit" id="submit-add-subject">Add Subject</button>
         </div>
       </div>
-      
-      <!-- Manage Professors Modal -->
-      <div id="manage-professors-modal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3>Manage Professors</h3>
-            <span class="close-modal">&times;</span>
-          </div>
-          <div class="manage-list" id="professors-list">
-            <!-- Professor list items will be added here -->
-          </div>
-          <button id="add-professor-from-manage" class="add-new-button">Add New Professor</button>
-          <div class="modal-footer">
-            <button id="close-manage-professors" class="cancel-btn">Close</button>
-          </div>
+    </div>
+  </form>
+
+  <!-- Add Professor Modal -->
+  <form action="add_professors.php" method="POST">
+    <div id="add-professor-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Add New Professor</h3>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="form-group">
+          <label for="new-professor-name">Professor Name</label>
+          <input type="text" id="new-professor-name" name="professorName" placeholder="e.g., John Smith" required>
+        </div>
+        <div class="form-group">
+          <label for="professor-title">Title (Optional)</label>
+          <input type="text" id="title" name="title" placeholder="e.g., Dr., Engr., Prof.">
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="cancel-add-professor" class="cancel-btn">Cancel</button>
+          <button type="submit" name="submit" id="submit-add-professor">Add Professor</button>
         </div>
       </div>
+    </div>
+  </form>
+
+  <!-- Manage Subjects Modal -->
+    <div id="manage-subjects-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Manage Subjects</h3>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="manage-list" id="subjects-list">
+          <!-- Subject list items will be added here -->
+        </div>
+        <button id="add-subject-from-manage" class="add-new-button">Add New Subject</button>
+        <div class="modal-footer">
+          <button id="close-manage-subjects" class="cancel-btn">Close</button>
+        </div>
+      </div>
+    </div>
+  
+  <!-- Manage Professors Modal -->
+  <div id="manage-professors-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Manage Professors</h3>
+        <span class="close-modal">&times;</span>
+      </div>
+      <div class="manage-list" id="professors-list">
+        <!-- Professor list items will be added here -->
+      </div>
+      <button id="add-professor-from-manage" class="add-new-button">Add New Professor</button>
+      <div class="modal-footer">
+        <button id="close-manage-professors" class="cancel-btn">Close</button>
+      </div>
+    </div>
+  </div>
   
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Initialize data structures
-      let subjects = [
-        { id: 1, name: 'Mathematics ', code: 'MATH101' },
-        { id: 2, name: 'Physics', code: 'PHYS101' },
-        { id: 3, name: 'Programming', code: 'CS101' }
-      ];
+      let subjects = [];
       
-      let professors = [
-        { id: 1, name: 'John Smith', title: 'Dr.' },
-        { id: 2, name: 'Maria Garcia', title: 'Prof.' },
-        { id: 3, name: 'Robert Johnson', title: 'Engr.' }
-      ];
+      let professors = [];
 
       // DOM Element references
       const scheduleBody = document.getElementById('schedule-body');
@@ -733,26 +648,29 @@
       }
       
       // Function to add a class to the schedule
-        function addClass() {
-      const subjectId = subjectSelect.value;
-      const professorId = professorSelect.value;
-      const section = document.getElementById('section-input').value.trim();
-      const subjectColor = document.getElementById('subject-color').value;
-      const maxStudents = document.getElementById('maximum_students').value;
-      const roomId = document.getElementById('room-select').value;
-
-      // Validate basic inputs
-      if (!subjectId || !professorId || !section || !roomId || !maxStudents) {
-          alert('Please fill in all required fields.');
+      function addClass() {
+        const subjectId = subjectSelect.value;
+        const professorId = professorSelect.value;
+        const section = document.getElementById('section-input').value.trim();
+        const subjectColor = document.getElementById('subject-color').value;
+        const startHour = startHourSelect.value;
+        const startMinute = startMinuteSelect.value;
+        const endHour = endHourSelect.value;
+        const endMinute = endMinuteSelect.value;
+        
+        // Validate inputs
+        if (!subjectId) {
+          alert('Please select a subject.');
           return;
-      }
-
-      // Get subject and professor details
-      const subject = subjects.find(s => s.id == subjectId);
-      const professor = professors.find(p => p.id == professorId);
-
-      if (!subject || !professor) {
-          alert('Invalid subject or professor selection.');
+        }
+        
+        if (!professorId) {
+          alert('Please select a professor.');
+          return;
+        }
+        
+        if (!section) {
+          alert('Please enter a section.');
           return;
         }
         
@@ -932,13 +850,13 @@
           checkbox.checked = false;
         });
       }
-      
+
       // Function to add a new subject
       function addSubject() {
-        const subjectName = document.getElementById('new-subject-name').value.trim();
-        const subjectCode = document.getElementById('subject-code').value.trim();
+        const subject_code = document.getElementById('new_subject_code').value.trim();
+        const subject_title = document.getElementById('new_subject_code').value.trim();
         
-        if (!subjectName) {
+        if (!subject_title) {
           alert('Please enter a subject name.');
           return;
         }
@@ -949,8 +867,8 @@
         // Add the new subject
         subjects.push({
           id: newId,
-          name: subjectName,
-          code: subjectCode || null
+          code: subject_code,
+          name: subject_title || null
         });
         
         // Update the dropdown
@@ -1045,7 +963,7 @@
           deleteBtn.className = 'list-item-delete';
           deleteBtn.textContent = '×';
           deleteBtn.addEventListener('click', () => {
-            if (confirm(`Are you sure you want to delete the professor: ${professor.name}?`)) {
+            if (confirm(`Are you sure you want to delete the professor: ${professor.professorName}?`)) {
               // Remove the professor
               professors = professors.filter(p => p.id !== professor.id);
               // Update the dropdown and list
@@ -1202,145 +1120,6 @@
       
       // Initialize everything when the DOM is loaded
       init();
-
-     // Add meeting time button functionality
-document.getElementById('add-meeting-time-btn').addEventListener('click', function(e) {
-  e.preventDefault();
-  
-  const meetingTimeSection = document.createElement('div');
-  meetingTimeSection.className = 'meeting-time-section';
-  
-  meetingTimeSection.innerHTML = `
-    <button type="button" class="cancel-btn" style="margin-left: auto; margin-bottom: 10px;">Remove</button>
-    <div class="form-group">
-      <label>Days</label>
-      <div class="day-checkboxes">
-        <label class="day-checkbox-label"><input type="checkbox" value="Monday">Mon</label>
-        <label class="day-checkbox-label"><input type="checkbox" value="Tuesday">Tue</label>
-        <label class="day-checkbox-label"><input type="checkbox" value="Wednesday">Wed</label>
-        <label class="day-checkbox-label"><input type="checkbox" value="Thursday">Thu</label>
-        <label class="day-checkbox-label"><input type="checkbox" value="Friday">Fri</label>
-        <label class="day-checkbox-label"><input type="checkbox" value="Saturday">Sat</label>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Start Time</label>
-      <div class="time-inputs">
-        <select class="start-hour" required>
-          <option value="" disabled selected>Hour</option>
-        </select>
-        <select class="start-minute" required>
-          <option value="" disabled selected>Minute</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>End Time</label>
-      <div class="time-inputs">
-        <select class="end-hour" required>
-          <option value="" disabled selected>Hour</option>
-        </select>
-        <select class="end-minute" required>
-          <option value="" disabled selected>Minute</option>
-        </select>
-      </div>
-    </div>
-    <hr style="margin: 20px 0;">
-  `;
-
-  // Add event listener for remove button
-  const removeBtn = meetingTimeSection.querySelector('.cancel-btn');
-  removeBtn.addEventListener('click', function() {
-    meetingTimeSection.remove();
-  });
-
-  // Get all time selects in this section
-  const startHourSelect = meetingTimeSection.querySelector('.start-hour');
-  const startMinuteSelect = meetingTimeSection.querySelector('.start-minute');
-  const endHourSelect = meetingTimeSection.querySelector('.end-hour');
-  const endMinuteSelect = meetingTimeSection.querySelector('.end-minute');
-
-  // Populate hours (7:00 - 20:00)
-  for (let i = 7; i < 21; i++) {
-    const hourValue = i.toString().padStart(2, '0');
-    startHourSelect.add(new Option(hourValue, hourValue));
-    endHourSelect.add(new Option(hourValue, hourValue));
-  }
-
-  // Populate minutes (00, 15, 30, 45)
-  ['00', '15', '30', '45'].forEach(minute => {
-    startMinuteSelect.add(new Option(minute, minute));
-    endMinuteSelect.add(new Option(minute, minute));
-  });
-
-  // Insert the new section before the Add Meeting Time button
-  const addButton = document.getElementById('add-meeting-time-btn');
-  addButton.parentNode.insertBefore(meetingTimeSection, addButton);
-});
-
-// Helper function to create subject item
-function createSubjectItem(subject, professor, section, subjectColor, maxStudents, roomId) {
-    const subjectItem = document.createElement('div');
-    subjectItem.className = 'subject-item';
-    subjectItem.style.backgroundColor = subjectColor;
-
-    const subjectName = document.createElement('div');
-    subjectName.className = 'subject-name';
-    subjectName.textContent = subject.name;
-    subjectItem.appendChild(subjectName);
-
-    const sectionInfo = document.createElement('div');
-    sectionInfo.className = 'section';
-    sectionInfo.textContent = section; // Use the section parameter directly
-    subjectItem.appendChild(sectionInfo);
-
-    const professorInfo = document.createElement('div');
-    professorInfo.className = 'professor-info';
-    professorInfo.textContent = `${professor.title} ${professor.name}`;
-    subjectItem.appendChild(professorInfo);
-
-    const roomInfo = document.createElement('div');
-    roomInfo.className = 'room-info';
-    roomInfo.textContent = `Room: ${roomId} | Max: ${maxStudents}`;
-    subjectItem.appendChild(roomInfo);
-
-    const deleteBtn = document.createElement('span');
-    deleteBtn.className = 'delete-btn';
-    deleteBtn.textContent = '×';
-    deleteBtn.onclick = function() {
-        if (confirm('Are you sure you want to delete this class?')) {
-            const cell = subjectItem.parentElement;
-            cell.innerHTML = '';
-            cell.dataset.occupied = 'false';
-            cell.rowSpan = 1;
-        }
-    };
-    subjectItem.appendChild(deleteBtn);
-
-    return subjectItem;
-}
-
-// Helper function to reset the add class form
-function resetAddClassForm() {
-    document.getElementById('section-input').value = '';
-    document.getElementById('maximum_students').value = '';
-    document.getElementById('room-select').selectedIndex = 0;
-    subjectSelect.selectedIndex = 0;
-    professorSelect.selectedIndex = 0;
-    startHourSelect.selectedIndex = 0;
-    startMinuteSelect.selectedIndex = 0;
-    endHourSelect.selectedIndex = 0;
-    endMinuteSelect.selectedIndex = 0;
-    document.getElementById('subject-color').value = '#a8e6a8';
-    
-    // Reset all day checkboxes
-    document.querySelectorAll('#add-class-modal .day-checkboxes input[type="checkbox"]').forEach(checkbox => {
-        checkbox.checked = false;
-    });
-
-    // Remove all additional meeting time sections
-    document.querySelectorAll('.meeting-time-section').forEach(section => section.remove());
-}
     });
   </script>
 </body>

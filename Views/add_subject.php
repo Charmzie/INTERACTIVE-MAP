@@ -1,42 +1,35 @@
 <?php
-// add_professor.php
-header('Content-Type: application/json');
+if (isset($_POST["submit"])) {
+    $subject_code = $_POST["subject_code"];
+    $subject_title = $_POST["subject_title"];
 
-$servername = "localhost"; // Change as per your configuration
-$username = "root";        // MySQL username
-$password = "";            // MySQL password
-$dbname = "professor_db";   // Your database name
+    // Validate that both fields are not empty
+    if (!empty($subject_code) && !empty($subject_title)) {
+        $link = mysqli_connect("localhost", "root", "", "course_db");
+        if ($link == false) {
+            die(mysqli_connect_error());
+        }
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    echo json_encode(['status' => 'error', 'message' => 'Connection failed: ' . $conn->connect_error]);
-    exit();
+        $sql = "INSERT INTO courses (subject_code, subject_title) VALUES ('$subject_code', '$subject_title')";
+        if (mysqli_query($link, $sql)) {
+            // Display a success message and redirect to room_Ass.php
+            echo "<script>
+                alert('Successfully Added the Subject');
+                window.location.href = 'room_Ass.php';
+            </script>";
+        } else {
+            // Display an error message and redirect to room_Ass.php
+            echo "<script>
+                alert('Something went wrong');
+                
+            </script>";
+        }
+    } else {
+        // Display a validation error message and redirect to room_Ass.php
+        echo "<script>
+            alert('Please provide all information');
+            
+        </script>";
+    }
 }
-
-// Get form data    
-$data = json_decode(file_get_contents("php://input"), true);
-$professorName = $data['professorName'] ?? '';
-$title = $data['title'] ?? '';
-
-if (empty($professorName)) {
-    echo json_encode(['status' => 'error', 'message' => 'Professor name is required.']);
-    exit();
-}
-
-// Insert into database
-$sql = "INSERT INTO professors (professorName, title) VALUES (?, ?)";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("ss", $professorName, $title);
-
-if ($stmt->execute()) {
-    echo json_encode(['status' => 'success', 'message' => 'Professor added successfully!', 'id' => $stmt->insert_id]);
-} else {
-    echo json_encode(['status' => 'error', 'message' => 'Error: ' . $stmt->error]);
-}
-
-$stmt->close();
-$conn->close();
 ?>

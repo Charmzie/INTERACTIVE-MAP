@@ -1,26 +1,34 @@
 <?php
-$connect = new PDO("mysql:host=localhost;dbname=professor_db", "root", "");
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['professorName'])) {
-    $professorName = trim($_POST['professorName']);
-    $title = isset($_POST['title']) ? trim($_POST['title']) : '';
+if (isset($_POST["submit"])) {
+    $professorName = $_POST["professorName"];
+    $title = $_POST["title"];
 
     if (!empty($professorName)) {
-        $query = "INSERT INTO professors (name, title) VALUES (:name, :title)";
-        $statement = $connect->prepare($query);
-        $statement->bindParam(':name', $professorName);
-        $statement->bindParam(':title', $title);
+        $link = mysqli_connect("localhost", "root", "", "professor_db");
+        if ($link == false) {
+            die(mysqli_connect_error());
+        }
 
-        if ($statement->execute()) {
-            header('Location: success_page.php'); // Redirect after success
-            exit();
+        $sql = "INSERT INTO professors (professorName, title) VALUES ('$professorName', '$title')";
+        if (mysqli_query($link, $sql)) {
+            // Display a success message and redirect to room_Ass.php
+            echo "<script>
+                alert('Successfully Added the Instructor');
+                window.location.href = 'room_Ass.php';
+            </script>";
         } else {
-            echo 'Error: Could not add professor.';
+            // Display an error message and redirect to room_Ass.php
+            echo "<script>
+                alert('Something went wrong');
+                window.location.href = 'room_Ass.php';
+            </script>";
         }
     } else {
-        echo 'Error: Professor name is required.';
+        // Display a validation error message and redirect to room_Ass.php
+        echo "<script>
+            alert('Please provide all information');
+            window.location.href = 'room_Ass.php';
+        </script>";
     }
-} else {
-    echo 'Invalid request.';
 }
 ?>
