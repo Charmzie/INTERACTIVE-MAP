@@ -1202,7 +1202,7 @@
         const endTime = `${endHourSelect.value}:${endMinuteSelect.value}`;
         
         // Validate inputs
-        if (!subject || !subjectCode || !professor || professorTitle || !section || !days || !max_students|| !start_time|| !end_time|| !color|| !room) {
+        if (!subject || !subjectCode || !professor || !professorTitle || !section || !days.length || !maxStudents || !startTime || !endTime || !color || !room) {
           alert('Please fill out all required fields.');
           return;
         }
@@ -1252,56 +1252,88 @@
           return;
         }
         
-        // Add class to the schedule
-        cells.forEach(cell => {
-          if (cell.dataset.time.split('-')[0] === startTime) {
-            cell.appendChild(createClassItem(classData, cell));
-            
-            // Save subject and professor if new
-            if (!subjects.find(s => s.name === subject)) {
-              subjects.push({ name: subject, code: subjectCode });
+
+        // Submit to database
+        const formData = new FormData();
+        formData.append('subject', subject);
+        formData.append('subjectCode', subjectCode);
+        formData.append('professor', professor);
+        formData.append('professorTitle', professorTitle);
+        formData.append('section', section);
+        formData.append('days', JSON.stringify(days));
+        formData.append('max_students', maxStudents);
+        formData.append('start_hour', startHourSelect.value);
+        formData.append('end_hour', endHourSelect.value);
+        formData.append('start_minute', startMinuteSelect.value);
+        formData.append('end_minute', endMinuteSelect.value);
+
+        // Send to add_class.php
+        fetch('add_class.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(result => {
+            if (result.includes('Successfully')) {
+                // Continue with the existing schedule update code
+                cells.forEach(cell => {
+                    if (cell.dataset.time.split('-')[0] === startTime) {
+                        cell.appendChild(createClassItem(classData, cell));
+                        
+                        // Save subject and professor if new
+                        if (!subjects.find(s => s.name === subject)) {
+                          subjects.push({ name: subject, code: subjectCode });
+                        }
+                        
+                        if (!professors.find(p => p.name === professor)) {
+                          professors.push({ name: professor, title: professorTitle });
+                        }
+                    }
+                });
+                
+                addClassModal.style.display = 'none';
+            } else {
+                alert('Error adding class: ' + result);
             }
-            
-            if (!professors.find(p => p.name === professor)) {
-              professors.push({ name: professor, title: professorTitle });
-            }
-          }
+        })
+        .catch(error => {
+            alert('Error adding class: ' + error);
         });
-        
-        // Add additional meeting times
-        const additionalMeetingSections = document.querySelectorAll('.meeting-time-section');
-        additionalMeetingSections.forEach(section => {
-          const additionalDays = Array.from(section.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
           
-          const additionalStartHour = section.querySelector('.additional-start_hour').value;
-          const additionalStartMinute = section.querySelector('.additional-start_minute').value;
-          const additionalEndHour = section.querySelector('.additional-end_hour').value;
-          const additionalEndMinute = section.querySelector('.additional-end_minute').value;
-          
-          const additionalStartTime = `${additionalStartHour}:${additionalStartMinute}`;
-          const additionalEndTime = `${additionalEndHour}:${additionalEndMinute}`;
-          
-          // Validate additional time range
-          const additionalStartTimeObj = parseTime(additionalStartTime);
-          const additionalEndTimeObj = parseTime(additionalEndTime);
-          if (
-            (additionalEndTimeObj.hour < additionalStartTimeObj.hour) || 
-            (additionalEndTimeObj.hour === additionalStartTimeObj.hour && additionalEndTimeObj.minute <= additionalStartTimeObj.minute)
-          ) {
-            alert('Additional meeting time: End time must be after start time.');
-            return;
-          }
-          
-          // Create additional class data
-          const additionalClassData = {
-            ...classData,
-            startTime: additionalStartTime,
-            endTime: additionalEndTime
-          };
-          
-          // Find cells for additional meeting time
-          const additionalCells = findCells(additionalStartTime, additionalEndTime, additionalDays);
-          
+          // Add additional meeting times
+          const additionalMeetingSections = document.querySelectorAll('.meeting-time-section');
+          additionalMeetingSections.forEach(section => {
+            const additionalDays = Array.from(section.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
+            
+            const additionalStartHour = section.querySelector('.additional-start_hour').value;
+            const additionalStartMinute = section.querySelector('.additional-start_minute').value;
+            const additionalEndHour = section.querySelector('.additional-end_hour').value;
+            const additionalEndMinute = section.querySelector('.additional-end_minute').value;
+            
+            const additionalStartTime = `${additionalStartHour}:${additionalStartMinute}`;
+            const additionalEndTime = `${additionalEndHour}:${additionalEndMinute}`;
+            
+            // Validate additional time range
+            const additionalStartTimeObj = parseTime(additionalStartTime);
+            const additionalEndTimeObj = parseTime(additionalEndTime);
+            if (
+              (additionalEndTimeObj.hour < additionalStartTimeObj.hour) || 
+              (additionalEndTimeObj.hour === additionalStartTimeObj.hour && additionalEndTimeObj.minute <= additionalStartTimeObj.minute)
+            ) {
+              alert('Additional meeting time: End time must be after start time.');
+              return;
+            }
+            
+            // Create additional class data
+            const additionalClassData = {
+              ...classData,
+              startTime: additionalStartTime,
+              endTime: additionalEndTime
+            };
+            
+            // Find cells for additional meeting time
+            const additionalCells = findCells(additionalStartTime, additionalEndTime, additionalDays);
+            
           // Check if additional cells are already occupied
           let additionalIsOccupied = false;
           additionalCells.forEach(cell => {
