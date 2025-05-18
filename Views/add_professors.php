@@ -3,8 +3,8 @@ if (isset($_POST["submit"])) {
     $professorName = $_POST["professorName"];
     $title = $_POST["title"];
 
-    if (!empty($professorName)) {
-        $link = mysqli_connect("localhost", "root", "", "professor_db");
+    if (!empty($professorName) && !empty($title)) {
+        $link = mysqli_connect("localhost", "root", "", "room_schedule_editable");
         if ($link == false) {
             die(mysqli_connect_error());
         }

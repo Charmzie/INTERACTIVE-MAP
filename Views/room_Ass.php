@@ -193,14 +193,14 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <select name="room_ID[]" required>
+                                        <select name="room_ID[]">
                                             <option value="">Select Room ID</option>
                                             <option value="410">410</option>
                                             <option value="411">411</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <select name="program_ID[]" required>
+                                        <select name="program_ID[]">
                                             <option value="">Select Program ID</option>
                                             <option value="ENE">ENE</option>
                                             <option value="ECE">ECE</option>

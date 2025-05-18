@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Schedule Maker</title>
-  
   <style>
     * {
       box-sizing: border-box;
@@ -488,16 +487,16 @@
     <button id="print-schedule">Print Schedule</button>
     <button id="save-schedule">Save Schedule</button>
   </div>
-<!----------------------------------------------------------------------------------------->
-  <!-- Add Class Modal -->
-    <form action="add_class.php" method="POST">
-      <div id="add-class-modal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3>Add Class</h3>
-            <span class="close-modal">&times;</span>
-          </div>
 
+  <!-- Add Class Modal -->
+  <div id="add-class-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Add Class</h3>
+        <span class="close-modal">&times;</span>
+      </div>
+
+        <form action="add_class.php" method="POST">
           <div class="form-group">
             <label for="subject-input">Subject</label>
             <input type="text" id="subject-input" name="subject" placeholder="Enter subject name" required>
@@ -543,11 +542,11 @@
           <div class="form-group">
             <label>Start Time</label>
             <div class="time-inputs">
-              <select id="start_hour" required name="start_hour">
+              <select id="start-hour" required>
                 <option value="" disabled selected>Hour</option>
                 <!-- Hours will be added dynamically -->
               </select>
-              <select id="start_minute" required name="start_minute">
+              <select id="start-minute" required>
                 <option value="" disabled selected>Minute</option>
                 <!-- Minutes will be added dynamically -->
               </select>
@@ -557,11 +556,11 @@
           <div class="form-group">
             <label>End Time</label>
             <div class="time-inputs">
-              <select id="end_hour" required name="end_hour">
+              <select id="end-hour" required>
                 <option value="" disabled selected>Hour</option>
                 <!-- Hours will be added dynamically -->
               </select>
-              <select id="end_minute" required name="end_minute">
+              <select id="end-minute" required>
                 <option value="" disabled selected>Minute</option>
                 <!-- Minutes will be added dynamically -->
               </select>
@@ -577,41 +576,10 @@
             <label for="room-select">Room</label>
             <select id="room-select" name="room" required>
               <option value="" disabled selected>Select a Room</option>
-                  <option value="410">410</option>
-                  <option value="411">411</option>
-                  <option value="412">412</option>
-                  <option value="413">413</option>
-                  <option value="510">510</option>
-                  <option value="511">511</option>
-                  <option value="512">512</option>
-                  <option value="513">513</option>
-                  <option value="610">610</option>
-                  <option value="611">611</option>
-                  <option value="612">612</option>
-                  <option value="613">613</option>
-                  <option value="CE1">CE1</option>
-                  <option value="CE2">CE2</option>
-                  <option value="CPE1">CPE1</option>
-                  <option value="DRAWING ROOM">DRAWING ROOM</option>
-                  <option value="ECE1">ECE1</option>
-                  <option value="ECE2">ECE2</option>
-                  <option value="EE2">EE2</option>
-                  <option value="ME1">ME1</option>
-                  <option value="ME2">ME2</option>
-                  <option value="MULTI-PURPOSE HALL">MULTI-PURPOSE HALL</option>
-                  <option value="ONLINE">ONLINE</option>
-                  <option value="TBA">TBA</option>
-                  <option value="AVR">AVR</option>
-                  <option value="SEMINAR ROOM">SEMINAR ROOM</option>
-                  <option value="CE Laboratory">CE Laboratory</option>
-                  <option value="Chemistry Laboratory">Chemistry Laboratory</option>
-                  <option value="Computer Laboratory 1">Computer Laboratory 1</option>
-                  <option value="Computer Laboratory 2">Computer Laboratory 2</option>
-                  <option value="CPE Laboratory">CPE Laboratory</option>
-                  <option value="EE Laboratory">EE Laboratory</option>
-                  <option value="ECE Laboratory">ECE Laboratory</option>
-                  <option value="ME Laboratory">ME Laboratory</option>
-                  <option value="Physics Laboratory">Physics Laboratory</option>
+              <option value="410">410</option>
+              <option value="411">411</option>
+              <option value="412">412</option>
+              <!-- Add other room options here -->
             </select>
           </div>
 
@@ -625,12 +593,12 @@
 
           <div class="modal-footer">
             <button id="cancel-add-class" class="cancel-btn">Cancel</button>
-            <button id="submit-add-class" type="submit">Add Class</button>
+            <button id="submit-add-class" type="submit" name="submit">Add Class</button>
           </div>
+        </form>
         </div>
       </div>
-    </form>
-<!----------------------------------------------------------------------------------------->
+
   <!-- Manage Subjects Modal -->
   <div id="manage-subjects-modal" class="modal">
     <div class="modal-content">
@@ -870,10 +838,10 @@
       const professorInput = document.getElementById('professor-input');
       const professorTitleInput = document.getElementById('professor-title-input');
       const sectionInput = document.getElementById('section-input');
-      const startHourSelect = document.getElementById('start_hour');
-      const startMinuteSelect = document.getElementById('start_minute');
-      const endHourSelect = document.getElementById('end_hour');
-      const endMinuteSelect = document.getElementById('end_minute');
+      const startHourSelect = document.getElementById('start-hour');
+      const startMinuteSelect = document.getElementById('start-minute');
+      const endHourSelect = document.getElementById('end-hour');
+      const endMinuteSelect = document.getElementById('end-minute');
       const maximumStudentsInput = document.getElementById('maximum_students');
       const additionalMeetingTimesContainer = document.getElementById('additional-meeting-times-container');
       
@@ -1139,13 +1107,13 @@
           <div class="form-group">
             <label>Start Time</label>
             <div class="time-inputs">
-              <select class="additional-start_hour" required>
+              <select class="additional-start-hour" required>
                 <option value="" disabled selected>Hour</option>
                 ${Array.from({length: 14}, (_, i) => i + 7).map(hour => 
                   `<option value="${hour.toString().padStart(2, '0')}">${hour.toString().padStart(2, '0')}</option>`
                 ).join('')}
               </select>
-              <select class="additional-start_minute" required>
+              <select class="additional-start-minute" required>
                 <option value="" disabled selected>Minute</option>
                 ${['00', '15', '30', '45'].map(minute => 
                   `<option value="${minute}">${minute}</option>`
@@ -1157,13 +1125,13 @@
           <div class="form-group">
             <label>End Time</label>
             <div class="time-inputs">
-              <select class="additional-end_hour" required>
+              <select class="additional-end-hour" required>
                 <option value="" disabled selected>Hour</option>
                 ${Array.from({length: 14}, (_, i) => i + 7).map(hour => 
                   `<option value="${hour.toString().padStart(2, '0')}">${hour.toString().padStart(2, '0')}</option>`
                 ).join('')}
               </select>
-              <select class="additional-end_minute" required>
+              <select class="additional-end-minute" required>
                 <option value="" disabled selected>Minute</option>
                 ${['00', '15', '30', '45'].map(minute => 
                   `<option value="${minute}">${minute}</option>`
@@ -1202,7 +1170,7 @@
         const endTime = `${endHourSelect.value}:${endMinuteSelect.value}`;
         
         // Validate inputs
-        if (!subject || !subjectCode || !professor || !professorTitle || !section || !days.length || !maxStudents || !startTime || !endTime || !color || !room) {
+        if (!subject || !professor || !section || days.length === 0 || !startTime || !endTime || !room) {
           alert('Please fill out all required fields.');
           return;
         }
@@ -1252,88 +1220,56 @@
           return;
         }
         
-
-        // Submit to database
-        const formData = new FormData();
-        formData.append('subject', subject);
-        formData.append('subjectCode', subjectCode);
-        formData.append('professor', professor);
-        formData.append('professorTitle', professorTitle);
-        formData.append('section', section);
-        formData.append('days', JSON.stringify(days));
-        formData.append('max_students', maxStudents);
-        formData.append('start_hour', startHourSelect.value);
-        formData.append('end_hour', endHourSelect.value);
-        formData.append('start_minute', startMinuteSelect.value);
-        formData.append('end_minute', endMinuteSelect.value);
-
-        // Send to add_class.php
-        fetch('add_class.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(result => {
-            if (result.includes('Successfully')) {
-                // Continue with the existing schedule update code
-                cells.forEach(cell => {
-                    if (cell.dataset.time.split('-')[0] === startTime) {
-                        cell.appendChild(createClassItem(classData, cell));
-                        
-                        // Save subject and professor if new
-                        if (!subjects.find(s => s.name === subject)) {
-                          subjects.push({ name: subject, code: subjectCode });
-                        }
-                        
-                        if (!professors.find(p => p.name === professor)) {
-                          professors.push({ name: professor, title: professorTitle });
-                        }
-                    }
-                });
-                
-                addClassModal.style.display = 'none';
-            } else {
-                alert('Error adding class: ' + result);
+        // Add class to the schedule
+        cells.forEach(cell => {
+          if (cell.dataset.time.split('-')[0] === startTime) {
+            cell.appendChild(createClassItem(classData, cell));
+            
+            // Save subject and professor if new
+            if (!subjects.find(s => s.name === subject)) {
+              subjects.push({ name: subject, code: subjectCode });
             }
-        })
-        .catch(error => {
-            alert('Error adding class: ' + error);
+            
+            if (!professors.find(p => p.name === professor)) {
+              professors.push({ name: professor, title: professorTitle });
+            }
+          }
         });
+        
+        // Add additional meeting times
+        const additionalMeetingSections = document.querySelectorAll('.meeting-time-section');
+        additionalMeetingSections.forEach(section => {
+          const additionalDays = Array.from(section.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
           
-          // Add additional meeting times
-          const additionalMeetingSections = document.querySelectorAll('.meeting-time-section');
-          additionalMeetingSections.forEach(section => {
-            const additionalDays = Array.from(section.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
-            
-            const additionalStartHour = section.querySelector('.additional-start_hour').value;
-            const additionalStartMinute = section.querySelector('.additional-start_minute').value;
-            const additionalEndHour = section.querySelector('.additional-end_hour').value;
-            const additionalEndMinute = section.querySelector('.additional-end_minute').value;
-            
-            const additionalStartTime = `${additionalStartHour}:${additionalStartMinute}`;
-            const additionalEndTime = `${additionalEndHour}:${additionalEndMinute}`;
-            
-            // Validate additional time range
-            const additionalStartTimeObj = parseTime(additionalStartTime);
-            const additionalEndTimeObj = parseTime(additionalEndTime);
-            if (
-              (additionalEndTimeObj.hour < additionalStartTimeObj.hour) || 
-              (additionalEndTimeObj.hour === additionalStartTimeObj.hour && additionalEndTimeObj.minute <= additionalStartTimeObj.minute)
-            ) {
-              alert('Additional meeting time: End time must be after start time.');
-              return;
-            }
-            
-            // Create additional class data
-            const additionalClassData = {
-              ...classData,
-              startTime: additionalStartTime,
-              endTime: additionalEndTime
-            };
-            
-            // Find cells for additional meeting time
-            const additionalCells = findCells(additionalStartTime, additionalEndTime, additionalDays);
-            
+          const additionalStartHour = section.querySelector('.additional-start-hour').value;
+          const additionalStartMinute = section.querySelector('.additional-start-minute').value;
+          const additionalEndHour = section.querySelector('.additional-end-hour').value;
+          const additionalEndMinute = section.querySelector('.additional-end-minute').value;
+          
+          const additionalStartTime = `${additionalStartHour}:${additionalStartMinute}`;
+          const additionalEndTime = `${additionalEndHour}:${additionalEndMinute}`;
+          
+          // Validate additional time range
+          const additionalStartTimeObj = parseTime(additionalStartTime);
+          const additionalEndTimeObj = parseTime(additionalEndTime);
+          if (
+            (additionalEndTimeObj.hour < additionalStartTimeObj.hour) || 
+            (additionalEndTimeObj.hour === additionalStartTimeObj.hour && additionalEndTimeObj.minute <= additionalStartTimeObj.minute)
+          ) {
+            alert('Additional meeting time: End time must be after start time.');
+            return;
+          }
+          
+          // Create additional class data
+          const additionalClassData = {
+            ...classData,
+            startTime: additionalStartTime,
+            endTime: additionalEndTime
+          };
+          
+          // Find cells for additional meeting time
+          const additionalCells = findCells(additionalStartTime, additionalEndTime, additionalDays);
+          
           // Check if additional cells are already occupied
           let additionalIsOccupied = false;
           additionalCells.forEach(cell => {
