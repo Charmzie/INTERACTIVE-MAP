@@ -8,6 +8,8 @@
 <body>
 
 <?php 
+
+include 'Views/User_Log.php';
 include 'Views/up.php';
 include 'Views/Side_noUp.php';
 include 'Views/middle.php';

@@ -194,7 +194,7 @@ skyDome.material = skyDomeMaterial;
         }
     });
  
-    function addButtonToMesh(mesh, label, onClick, offset = new BABYLON.Vector3(0, 25, 20), tooltipText = "", imageURL = "", videoURL = "", rotation = null) {
+    function addButtonToMesh(mesh, label, onClick, offset = new BABYLON.Vector3(0, 25, 20), tooltipText = "", imageURL = "", videoURL = "", rotation = null, seeScheduleURL = "") {
         const plane = BABYLON.MeshBuilder.CreatePlane(label + "Plane", {width: 10, height: 5}, scene);
         plane.parent = mesh;
         plane.position = offset;
@@ -262,17 +262,19 @@ skyDome.material = skyDomeMaterial;
  
                 // Example action for Button 1 (you can replace this with your custom function)
                 Add_Schedule.onclick = () => {
-                    console.log("Button 1 clicked for adding schedule");
-                    // Add specific functionality for button 1, e.g., close video, trigger new action
-                    window.location.href = "../views/Room_Schedule_editable.php";
-                    document.getElementById("videoButtons").style.display = "none";
-                };
- 
-                // Example action for Button 2 (you can replace this with your custom function)
-                See_Schedule.onclick = () => {
-                    console.log("Button 2 clicked for seing the sched");
-                    // Add specific functionality for button 2, e.g., play another video, trigger event
-                };
+                window.location.href = "../views/Room_Schedule_editable.php";
+                document.getElementById("videoButtons").style.display = "none";
+            };
+
+            See_Schedule.onclick = () => {
+                if (seeScheduleURL) {
+                    window.location.href = seeScheduleURL;
+                } else {
+                    console.log("No URL defined for See Schedule.");
+                }
+                document.getElementById("videoButtons").style.display = "none";
+            };
+
  
                 setTimeout(() => {
                     popupVideo.pause();
@@ -301,133 +303,134 @@ skyDome.material = skyDomeMaterial;
                 console.log("Entered Room 613");
                 camera.setTarget(build2);
                 camera.radius = 650;
-            }, new BABYLON.Vector3(-13, 19, -30), "Room: 613 \n Floor: 6th \n Capacity: 40 \n", "", "../resources/bldg2.mp4");
+            }, new BABYLON.Vector3(-13, 19, -30), "Room: 613 \n Floor: 6th \n Capacity: 40 \n", "", "../resources/bldg2.mp4", null, "613.php");
         
  
                 addButtonToMesh(build2, "612", function () {
                     console.log("Entered Building 1");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(-6, 19, -30), "Room: 612 \n Floor: 6th \n Capacity: 40 \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(-6, 19, -30), "Room: 612 \n Floor: 6th \n Capacity: 40 \n", "", "../resources/bldg2.mp4", null, "612.php");
  
                 addButtonToMesh(build2, "611", function () {
                     console.log("Entered Building 1");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(16, 19, -30), "Room: 611 \n Floor: 6th \n Capacity: 40 \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(16, 19, -30), "Room: 611 \n Floor: 6th \n Capacity: 40 \n", "", "../resources/bldg2.mp4", null, "611.php");
                 
                 addButtonToMesh(build2, "610", function () {
                     console.log("Entered Building 1");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(22.5, 19, -30), "Room: 610 \n Floor: 6th \n Capacity: 40 \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(22.5, 19, -30), "Room: 610 \n Floor: 6th \n Capacity: 40 \n", "", "../resources/bldg2.mp4", null, "610.php");
  
                 addButtonToMesh(build2, "513", function () {
                     console.log("Entered Building 1");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(-13, 15.5, -30), "Room: 513 \n Floor: 5th \n Capacity: 40 \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(-13, 15.5, -30), "Room: 513 \n Floor: 5th \n Capacity: 40 \n", "", "../resources/bldg2.mp4", null, "513.php");
  
                 addButtonToMesh(build2, "512", function () {
                     console.log("Entered Building 1");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(-6, 15.5, -30), "Room: 512 \n Floor: 5th \n Capacity: 40 \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(-6, 15.5, -30), "Room: 512 \n Floor: 5th \n Capacity: 40 \n", "", "../resources/bldg2.mp4", null, "512.php");
  
                 addButtonToMesh(build2, "511", function () {
                     console.log("Entered Building 1");
                     camera.setTarget(build2);  camera.radius = 650;
-                }, new BABYLON.Vector3(16, 15.5, -30), "Room: 511 \n Floor: 5th \n Capacity: 40 \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(16, 15.5, -30), "Room: 511 \n Floor: 5th \n Capacity: 40 \n", "", "../resources/bldg2.mp4", null, "511.php");
  
                 addButtonToMesh(build2, "510", function () {
                     console.log("Entered Building 1");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(22.5, 15.5, -30), "Room: 510 \n Floor: 5th \n Capacity: 40 \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(22.5, 15.5, -30), "Room: 510 \n Floor: 5th \n Capacity: 40 \n", "", "../resources/bldg2.mp4", null, "510.php");
  
                 addButtonToMesh(build2, "413", function () {
                     console.log("Entered Building 1");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(-13, 12, -30), "Room: 413 \n Floor: 4th \n Capacity: 40 \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(-13, 12, -30), "Room: 413 \n Floor: 4th \n Capacity: 40 \n", "", "../resources/bldg2.mp4", null, "413.php");
  
                 addButtonToMesh(build2, "412", function () {
                     console.log("Entered Building 1");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(-6, 12, -30), "Room: 412 \n Floor: 4th \n Capacity: 40 \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(-6, 12, -30), "Room: 412 \n Floor: 4th \n Capacity: 40 \n", "", "../resources/bldg2.mp4", null, "412.php");
  
                 addButtonToMesh(build2, "411", function () {
                     console.log("Entered Building 1");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(16, 12, -30), "Room: 411 \n Floor: 4th \n Capacity: 40 \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(16, 12, -30), "Room: 411 \n Floor: 4th \n Capacity: 40 \n", "", "../resources/bldg2.mp4", null, "411.php");
  
                 addButtonToMesh(build2, "410", function () {
-                    console.log("Entered Building 1");
+                    console.log("Entered Room 410");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(22.5, 12, -30), "Room: 410 \n Floor: 4th \n Capacity: 40 \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(22.5, 12, -30), "Room: 410 \n Floor: 4th \n Capacity: 40 \n", "", "../resources/bldg2.mp4", null, "410.php");
+
  
                 addButtonToMesh(build2, "PT Faculty", function () {
                     console.log("Entered Building 1");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(-13, 8, -30), "Room: Part-Time Faculty \n Floor: 3rd \n Capacity: - \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(-13, 8, -30), "Room: Part-Time Faculty \n Floor: 3rd \n Capacity: - \n", "", "../resources/bldg2.mp4", null, "");
  
                 addButtonToMesh(build2, "Robotics R.", function () {
                     console.log("Entered Building 1");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(-6, 8, -30), "Room: Robotics Room \n Floor: 3rd \n Capacity: - \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(-6, 8, -30), "Room: Robotics Room \n Floor: 3rd \n Capacity: - \n", "", "../resources/bldg2.mp4", null, "");
  
                 addButtonToMesh(build2, "Something R.", function () {
                     console.log("Entered Building 1");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(16, 8, -30), "Room: 311 \n Floor: 3rd \n Capacity: - \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(16, 8, -30), "Room: 311 \n Floor: 3rd \n Capacity: - \n", "", "../resources/bldg2.mp4", null, "");
  
                 addButtonToMesh(build2, "FT Faculty", function () {
                     console.log("Entered Building 1");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(22.5, 8, -30), "Room: Full-Time Faculty \n Floor: 3rd \n Capacity: - \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(22.5, 8, -30), "Room: Full-Time Faculty \n Floor: 3rd \n Capacity: - \n", "", "../resources/bldg2.mp4", null, "");
  
                 addButtonToMesh(build2, "Something Room", function () {
                     console.log("Entered Building 1");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(-13, 4.5, -30),"Room: 213 \n Floor: 2nd \n Capacity: 40 \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(-13, 4.5, -30),"Room: 213 \n Floor: 2nd \n Capacity: 40 \n", "", "../resources/bldg2.mp4", null, "");
  
                 addButtonToMesh(build2, "CpE Lab.", function () {
                     console.log("Entered Room 613");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(-6, 4.5, -30),  "Room: Computer \nEngineering Laboratory \n Floor: 2nd \n Capacity: 40 \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(-6, 4.5, -30),  "Room: Computer \nEngineering Laboratory \n Floor: 2nd \n Capacity: 40 \n", "", "../resources/bldg2.mp4", null, "CPELab.php");
  
                 addButtonToMesh(build2, "ECE Lab", function () {
                     console.log("Entered Building 1");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(16, 4.5, -30), "Room: Electronics \nEngineering Laboratory \n Floor: 2nd \n Capacity: 40 \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(16, 4.5, -30), "Room: Electronics \nEngineering Laboratory \n Floor: 2nd \n Capacity: 40 \n", "", "../resources/bldg2.mp4", null, "ECELab.php");
  
                 addButtonToMesh(build2, "EE Lab", function () {
                     console.log("Entered Building 1");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(22.5, 4.5, -30), "Room: Electrical \nEngineering Laboratory \n Floor: 2nd \n Capacity: 40 \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(22.5, 4.5, -30), "Room: Electrical \nEngineering Laboratory \n Floor: 2nd \n Capacity: 40 \n", "", "../resources/bldg2.mp4", null, "EELab.php");
  
                 addButtonToMesh(build2, "CE Lab.", function () {
                     console.log("Entered Building 1");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(-8, 1, -30), "Room: Civil \nEngineering Laboratory \n Floor: 1st \n Capacity: - \n", "", "../resources/bldg2.mp4");
+                }, new BABYLON.Vector3(-8, 1, -30), "Room: Civil \nEngineering Laboratory \n Floor: 1st \n Capacity: - \n", "", "../resources/bldg2.mp4", null, "CELab.php");
  
                 addButtonToMesh(build2, "ME Lab.", function () {
                     console.log("Entered Building 1");
                     camera.setTarget(build2);
                     camera.radius = 650;
-                }, new BABYLON.Vector3(16, 1, -30), "Room: Mechanical \nEngineering Laboratory \n Floor: 1st \n Capacity: - \n");
+                }, new BABYLON.Vector3(16, 1, -30), "Room: Mechanical \nEngineering Laboratory \n Floor: 1st \n Capacity: - \n", "", "../resources/bldg2.mp4", null, "MELab.php");
  
                 addButtonToMesh(build2, "NSTP Room", function () {
                     console.log("Entered Building 1");

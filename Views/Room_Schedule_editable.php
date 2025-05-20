@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +16,7 @@
       background-color: #f5f5f5;
     }
 
-    .schedule-nav {
+   .schedule-nav {
       display: flex;  
       align-items: center;
       margin-bottom: 20px;
@@ -396,7 +397,8 @@
       cursor: pointer;
       font-weight: bold;
     }
-    
+  
+
     @media (max-width: 768px) {
       .schedule-table {
         font-size: 14px;
@@ -440,9 +442,64 @@
         display: none !important;
       }
     }
+
+  #menuToggle {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 100;
+    padding: 10px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #000080;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+ 
+  #tripleMenu {
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    display: none; /* Initially hidden */
+    flex-direction: column;
+    background-color: #2996ab;
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 99;
+}
+ 
+  #menu-section {
+    padding-top: 20px;
+    margin-bottom: 10px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+}
+ 
+  #menu-section:last-child {
+    border-bottom: none;
+}
+ 
+  #menu-section:hover {
+    background-color: #49aabc;
+}
+
+  
   </style>
 </head>
 <body>
+
+<button id ="menuToggle">☰ Menu</button>
+ 
+<!-- Hidden Menu -->
+<div id ="tripleMenu">
+    <a href="../views/Interactive_Map.php" id="menu-section">Main Interactive Map</a>
+    <a href="../views/main.php" id="menu-section">Main Page</a>
+</div>
+
   <div class="container">
     <img src="../resources/CDM-Logo.png" alt="CDM Logo" width="100" height="100">
     <h1>COLEGIO DE MUNTINLUPA</h1>
@@ -496,7 +553,7 @@
         <span class="close-modal">&times;</span>
       </div>
 
-        <form action="add_class.php" method="POST">
+        <form name="add_class" action="add_class.php" method="POST">
           <div class="form-group">
             <label for="subject-input">Subject</label>
             <input type="text" id="subject-input" name="subject" placeholder="Enter subject name" required>
@@ -542,11 +599,11 @@
           <div class="form-group">
             <label>Start Time</label>
             <div class="time-inputs">
-              <select id="start-hour" required>
+              <select id="start-hour" name='start_hour' required>
                 <option value="" disabled selected>Hour</option>
                 <!-- Hours will be added dynamically -->
               </select>
-              <select id="start-minute" required>
+              <select id="start-minute" name='start_minute' required>
                 <option value="" disabled selected>Minute</option>
                 <!-- Minutes will be added dynamically -->
               </select>
@@ -556,11 +613,11 @@
           <div class="form-group">
             <label>End Time</label>
             <div class="time-inputs">
-              <select id="end-hour" required>
+              <select id="end-hour" name='end_hour' required>
                 <option value="" disabled selected>Hour</option>
                 <!-- Hours will be added dynamically -->
               </select>
-              <select id="end-minute" required>
+              <select id="end-minute" name='end_minute' required>
                 <option value="" disabled selected>Minute</option>
                 <!-- Minutes will be added dynamically -->
               </select>
@@ -576,9 +633,44 @@
             <label for="room-select">Room</label>
             <select id="room-select" name="room" required>
               <option value="" disabled selected>Select a Room</option>
+              <option value="Library">Library</option>
+              <option value="Seminar">Seminar Room</option>
+              <option value="AVR">Audio Visual Room</option>
+              <option value="ComLab">Computer Laboratory 2</option>
+              <option value="ME1">ME1</option>
+              <option value="ME2">ME2</option>
+              <option value="ECE1">ECE1</option>
+              <option value="ECE2">ECE2</option>
+              <option value="CE1">CE1</option>
+              <option value="CE2">CE2</option>
+              <option value="EE2">EE2</option>
+              <option value="CPE1">CPE1</option>
+              <option value="AR">Architecture Room</option>
+              <option value="Complab1">Computer Laboratory 1</option>
+              <option value="PhyLab">Physics Laboratory</option>
+              <option value="ChemLab">Chemistry Laboratory</option>
+              <option value="CELab">Civil Engineering Laboratory</option>
+              <option value="MELab">Mechanical Engineering Laboratory</option>
+              <option value="EELab">Electrical Engineering Laboratory</option>
+              <option value="ECELab">Electronics Engineering Laboratory</option>
+              <option value="CPELab">Computer Engineering Laboratory</option>
+              <option value="Research">Research Room </option>
+              <!-- <option value="F-Faculty">Full-Time Faculty Room</option>
+              <option value="Audit">Audit Room</option>
+              <option value="Robotics">Robotics Room</option>
+              <option value="PT-Faculty">Part-Time Faculty Room</option> -->
               <option value="410">410</option>
               <option value="411">411</option>
               <option value="412">412</option>
+              <option value="413">413</option>
+              <option value="510">510</option>
+              <option value="511">511</option>
+              <option value="512">512</option>
+              <option value="513">513</option>
+              <option value="610">610</option>
+              <option value="611">611</option>
+              <option value="612">612</option>
+              <option value="613">612</option>
               <!-- Add other room options here -->
             </select>
           </div>
@@ -610,7 +702,7 @@
         <!-- Subject list items will be added here -->
       </div>
       <div class="form-group">
-        <input type="text" id="new-subject-name" placeholder="Enter subject name" required>
+        <input type="text" id="new-subject-name" name='new-subject-name' placeholder="Enter subject name">
         <input type="text" id="subject-code" placeholder="Subject code (optional)" style="margin-top: 10px;">
       </div>
       <button id="add-subject-from-manage" class="add-new-button">Add New Subject</button>
@@ -631,7 +723,7 @@
         <!-- Professor list items will be added here -->
       </div>
       <div class="form-group">
-        <input type="text" id="new-professor-name" placeholder="Enter professor name" required>
+        <input type="text" id="new-professor-name" placeholder="Enter professor name">
         <input type="text" id="professor-title" placeholder="Title (optional)" style="margin-top: 10px;">
       </div>
       <button id="add-professor-from-manage" class="add-new-button">Add New Professor</button>
@@ -640,6 +732,8 @@
       </div>
     </div>
   </div>
+
+  
   
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -1153,6 +1247,8 @@
       
       // Submit Add Class Event
       document.getElementById('submit-add-class').addEventListener('click', function() {
+        const ac_form = document.forms['add_class'];
+        console.log(ac_form);
         const subject = subjectInput.value.trim();
         const subjectCode = subjectCodeInput.value.trim();
         const professor = professorInput.value.trim();
@@ -1840,6 +1936,22 @@
         input.click();
       });
       document.querySelector('.controls').appendChild(importButton);
+    });
+
+
+    const toggleButton = document.getElementById("menuToggle");
+    const tripleMenu = document.getElementById("tripleMenu");
+ 
+    toggleButton.addEventListener("click", () => {
+        const isVisible = tripleMenu.style.display === "flex";
+        tripleMenu.style.display = isVisible ? "none" : "flex";
+    });
+ 
+    // Optional: Hide menu when a section is clicked
+    document.querySelectorAll(".menu-section").forEach(section => {
+        section.addEventListener("click", () => {
+            tripleMenu.style.display = "none";
+        });
     });
   </script>
 </body>

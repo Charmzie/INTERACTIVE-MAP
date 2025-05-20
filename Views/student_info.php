@@ -33,7 +33,7 @@
 
 .Middle_Container1 {
     position: relative;
-    top:-118px;
+    top:-110px;
     left:260px;
     width: 18vw;
     height: 25vh;
@@ -46,7 +46,7 @@
 
 .Middle_Container2 {
     position: relative;
-    top:-296px;
+    top:-280px;
     left:520px;
     width: 18vw;
     height: 25vh;
@@ -59,7 +59,7 @@
 
 .Middle_Container3 {
     position: relative;
-    top:-476px;
+    top:-449px;
     left:780px;
     width: 18vw;
     height: 25vh;
@@ -84,7 +84,7 @@
 
 .Middle_Container5 {
     position: relative;
-    top:-548px;
+    top:-540px;
     left:260px;
     width: 18vw;
     height: 25vh;
@@ -97,7 +97,7 @@
 
 .Middle_Container6 {
     position: relative;
-    top:-726px;
+    top:-710px;
     left:520px;
     width: 18vw;
     height: 25vh;
@@ -235,8 +235,8 @@
         <img src="../resources/Middle_Pic.png" class="Middle_Pic" alt="Middle Image">
         <div class="OverlayM"></div>
         <h1 class = "MidTextUpper"> Academic Year  </h1>
-        <h4 class = "MidTextLower"> 2024 - 2025</h4>
-        <a href = "../Views/Student_2024_2025.php">
+        <h4 class = "MidTextLower"> 2018 - 2019</h4>
+        <a href = "../Views/Student_2018_2019.php">
             <button class = "ReadM_Stud"> View More </button>
         </a>
     </div>
@@ -246,8 +246,8 @@
         <img src="../resources/Middle_Pic.png" class="Middle_Pic" alt="Middle Image">
         <div class="OverlayM"></div>
         <h1 class = "MidTextUpper"> Academic Year </h1>
-        <h4 class = "MidTextLower"> 2023 - 2024 </h4>
-        <a href = "../Views/Student_2023_2024.php">
+        <h4 class = "MidTextLower"> 2019 - 2020 </h4>
+        <a href = "../Views/Student_2019_2020.php">
             <button class = "ReadM_Stud"> View More </button>
         </a>   
     </div>
@@ -256,8 +256,8 @@
         <img src="../resources/Middle_Pic.png" class="Middle_Pic" alt="Middle Image">
         <div class="OverlayM"></div>
         <h1 class = "MidTextUpper"> Academic Year </h1>
-        <h4 class = "MidTextLower"> 2022 - 2023 </h4>
-        <a href = "../Views/Student_2022_2023.php">
+        <h4 class = "MidTextLower"> 2020 - 2021 </h4>
+        <a href = "../Views/Student_2020_2021.php">
             <button class = "ReadM_Stud"> View More </button>
         </a>   
     </div>
@@ -276,8 +276,8 @@
         <img src="../resources/Middle_Pic.png" class="Middle_Pic" alt="Middle Image">
         <div class="OverlayM"></div>
         <h1 class = "MidTextUpper"> Academic Year </h1>
-        <h4 class = "MidTextLower"> 2020 - 2021 </h4>
-        <a href = "../Views/Student_2020_2021.php">
+        <h4 class = "MidTextLower"> 2022 - 2023 </h4>
+        <a href = "../Views/Student_2022_2023.php">
             <button class = "ReadM_Stud"> View More </button>
         </a>   
     </div>
@@ -286,8 +286,8 @@
         <img src="../resources/Middle_Pic.png" class="Middle_Pic" alt="Middle Image">
         <div class="OverlayM"></div>
         <h1 class = "MidTextUpper"> Academic Year </h1>
-        <h4 class = "MidTextLower"> 2019 - 2020 </h4>
-        <a href = "../Views/Student_2019_2020.php">
+        <h4 class = "MidTextLower"> 2023 - 2024 </h4>
+        <a href = "../Views/Student_2023_2024.php">
             <button class = "ReadM_Stud"> View More </button>
         </a>   
     </div>
@@ -296,8 +296,8 @@
         <img src="../resources/Middle_Pic.png" class="Middle_Pic" alt="Middle Image">
         <div class="OverlayM"></div>
         <h1 class = "MidTextUpper"> Academic Year </h1>
-        <h4 class = "MidTextLower"> 2018 - 2019 </h4>
-        <a href = "../Views/Student_2018_2019.php">
+        <h4 class = "MidTextLower"> 2024 - 2025 </h4>
+        <a href = "../Views/Student_2024_2025.php">
             <button class = "ReadM_Stud"> View More </button>
         </a>   
     </div>

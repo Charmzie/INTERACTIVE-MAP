@@ -392,7 +392,7 @@
             <div class="OverlayR"></div>
             <h1 class = "RightTextUpper"> Room Assignment </h1>
             <h4 class = "RightTextLower"> Efficient allocation of classrooms based on schedules and capacity requirements </h4>
-            <a href = "../Views/room_Ass.php">
+            <a href = "../Views/Room_Schedule_editable.php">
                 <button class = "ReadM_Stud"> View More </button>
             </a>
         </div>
