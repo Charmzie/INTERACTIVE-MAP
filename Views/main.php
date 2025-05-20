@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upper Portion</title>
+    <title>Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="../resources/CDM-Logo.png">
  
     <style>
         .body{
@@ -85,7 +86,19 @@
  
         @import url('https://fonts.googleapis.com/css?family=Montserrat');
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
- 
+
+        @font-face {
+            font-family: Arial-Rounded-Mt-Bold;
+            src: url(resources/fonts/arialroundedmtbold.ttf);
+        }
+        @font-face {
+            font-family: Poppins-Bold;
+            src: url(resources/fonts/Poppins-Bold.ttf);
+        }
+        @font-face {
+            font-family: Poppins-Regular;
+            src: url(resources/fonts/Poppins-Regular.ttf);
+        }
         @keyframes slideInLeft {
             0% { transform: translateX(-100px); opacity: 0; }
              100% { transform: translateX(0); opacity: 1; }
@@ -106,7 +119,7 @@
             position: fixed;
             width: 15vw;
             height: 100vh;
-            background-color: rgba(4, 30, 39, 1);
+            background-color: #041e31;
             top:0; /* Below navbar */
             left: 0;
             display: flex;
@@ -123,25 +136,30 @@
  
         .CdM, .AdminPort, .MainMenu {
             text-align: center;
-            letter-spacing: 2px;
+
+            
         }
  
         .CdM {
-            font-size: 18px;
+            font-size: 25px;
             font-weight: bold;
             margin: 10px 0;
+            font-family: Arial-Rounded-Mt-Bold, Arial;
+            letter-spacing: 2px;
         }
  
         .AdminPort {
             font-size: 15px;
             font-weight: 500;
             margin-bottom: 10px;
+            font-family: Poppins-Bold, Arial;
         }
  
         .MainMenu {
             font-size: 15px;
             font-weight: 500;
             margin-top: 20px;
+            font-family: Poppins-Bold, Arial;
         }
  
         /* Navigation Links */
@@ -157,233 +175,316 @@
             text-align: center;
             border-radius: 5px;
             transition: 0.3s;
+            font-family: Poppins-Bold, Arial;
         }
  
         .Dash:hover, .Acc:hover {
-            background-color: blue;
+            background-color: #31dcb7;
+            color:black;
+        }
+
+        .logoutBtn:hover {
+            background-color: red;
             color: white;
         }
  
         .Middle {
-    margin-left: 160px;
-    margin-top: 120vh;  /* pushes it naturally down */
-    width: 90vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+            margin-left: 160px;
+            margin-top: 120vh;  /* pushes it naturally down */
+            width: 90vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
  
 /* Middle Image + Overlay */
-.Middle_Container {
-    position: relative;
-    width: 85%;
-    height: 50vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-}
- 
-.Middle_Pic {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-}
- 
-.OverlayM {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 123, 255, 0.6), rgba(0, 0, 139, 0.6));
-    border-radius: 10px;
-}
- 
-/* Middle Image Text */
-.MidTextUpper, .MidTextLower {
-    position: absolute;
-    text-align: center;
-    z-index: 2;
-    width: 90%;
-    color: white;
-}
- 
-.MidTextUpper {
-    top: 20%;
-    font-size: 4vw;
-    font-weight: bold;
-    letter-spacing: 2px;
-}
- 
-.MidTextLower {
-    top: 50%;
-    font-size: 1.5vw;
-    max-width: 80%;
-}
- 
-/* Left & Right Images */
-.Lower_Images {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    width: 100%;
-}
- 
-.Left_Container, .Right_Container {
-    position: relative;
-    width: 42%;
-    height: 50vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-}
- 
-.Left_Pic, .Right_Pic {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-}
- 
-/* Overlays */
-.OverlayL {
-    background: linear-gradient(to bottom, rgba(255, 0, 0, 0.6), rgba(139, 0, 0, 0.6));
-}
-.OverlayR {
-    background: linear-gradient(to bottom, rgba(255, 255, 0, 0.6), rgba(204, 204, 0, 0.6));
-}
-.OverlayL, .OverlayR {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-}
- 
-/* Text */
-.LeftTextUpper, .RightTextUpper, .LeftTextLower, .RightTextLower {
-    position: absolute;
-    text-align: center;
-    z-index: 2;
-    color: white;
-    width: 90%;
-}
- 
-.LeftTextUpper, .RightTextUpper {
-    top: 15%;
-    font-size: 3vw;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
- 
-.LeftTextLower, .RightTextLower {
-    top: 50%;
-    font-size: 1.4vw;
-}
- 
-/* Button */
-.ReadM_Stud {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 10px 20px;
-    background-color: #0044cc;
-    color: white;
-    font-size: 1.2vw;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    z-index: 2;
-}
- 
-.ReadM_Stud:hover {
-    background-color: #002a80;
-    transform: translateX(-50%) scale(1.05);
-}
- 
-.ReadM_Stud:active {
-    transform: translateX(-50%) scale(0.98);
-}
- 
-/* RESPONSIVE MEDIA QUERIES — adjust margin instead of top */
-@media(max-width:900px){
-    .Middle {
-        margin-left: 200px;
-        margin-top: 130vh;
+    .Middle_Container {
+        position: relative;
+        width: 85%;
+        height: 50vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
     }
-}
-@media(max-width:800px){
-    .Middle {
-        margin-left: 220px;
-        margin-top: 180vh;
+    
+    .Middle_Pic {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
     }
-}
-@media(max-width:700px){
-    .Middle {
-        margin-left: 230px;
-        margin-top: 200vh;
+    
+    .OverlayM {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0, 123, 255, 0.6), rgba(0, 0, 139, 0.6));
+        border-radius: 10px;
     }
-}
-@media(max-width:500px){
-    .Middle {
-        margin-left: 250px;
-        margin-top: 250vh;
+    
+    /* Middle Image Text */
+    .MidTextUpper, .MidTextLower {
+        position: absolute;
+        text-align: center;
+        z-index: 2;
+        width: 90%;
+        color: white;
     }
-}
- 
-    </style>
-</head>
-<body>
-    <div class = "Background-Vid">
-        <video autoplay muted loop class = "Back_G-Vid">
-            <source src = "../resources/Background_VID.mp4" type = "video/mp4">
-        </video>
- 
-        <div class = "rectangle">
-                <h1 class = "CDM"> <b> COLEGIO DE MUNTINLUPA </b> </h1>
-                <h1 class = "CDM1"> <b>INTERACTIVE MAP </b></h1>
+    
+    .MidTextUpper {
+        top: 20%;
+        font-size: 4vw;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+    
+    .MidTextLower {
+        top: 50%;
+        font-size: 1.5vw;
+        max-width: 80%;
+    }
+    
+    /* Left & Right Images */
+    .Lower_Images {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        width: 100%;
+    }
+    
+    .Left_Container, .Right_Container {
+        position: relative;
+        width: 42%;
+        height: 50vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+    }
+    
+    .Left_Pic, .Right_Pic {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+    
+    /* Overlays */
+    .OverlayL {
+        background: linear-gradient(to bottom, rgba(255, 0, 0, 0.6), rgba(139, 0, 0, 0.6));
+    }
+    .OverlayR {
+        background: linear-gradient(to bottom, rgba(255, 255, 0, 0.6), rgba(204, 204, 0, 0.6));
+    }
+    .OverlayL, .OverlayR {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+    }
+    
+    /* Text */
+    .LeftTextUpper, .RightTextUpper, .LeftTextLower, .RightTextLower {
+        position: absolute;
+        text-align: center;
+        z-index: 2;
+        color: white;
+        width: 90%;
+    }
+    
+    .LeftTextUpper, .RightTextUpper {
+        top: 15%;
+        font-size: 3vw;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+    
+    .LeftTextLower, .RightTextLower {
+        top: 50%;
+        font-size: 1.4vw;
+    }
+    
+    /* Button */
+    .ReadM_Stud {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        background-color: #0044cc;
+        color: white;
+        font-size: 1.2vw;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        z-index: 2;
+    }
+    
+    .ReadM_Stud:hover {
+        background-color: #002a80;
+        transform: translateX(-50%) scale(1.05);
+    }
+    
+    .ReadM_Stud:active {
+        transform: translateX(-50%) scale(0.98);
+    }
+
+    /* Logout Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.7);
+    }
+
+    .modal-content {
+        background-color: #f4f4f4;
+        margin: 15% auto;
+        padding: 20px;
+        width: 350px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        animation: modalFadeIn 0.3s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+        from {opacity: 0; transform: translateY(-50px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+
+    .modal-header {
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .modal-header h2 {
+        margin: 0;
+        color: #333;
+        font-size: 20px;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .modal-body {
+        padding: 20px 0;
+        text-align: center;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .modal-footer {
+        padding: 10px 0;
+        text-align: center;
+        border-top: 1px solid #ddd;
+    }
+
+    .btn {
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        margin: 0 5px;
+        transition: 0.3s;
+    }
+
+    .btn-cancel {
+        background-color: #f44336;
+        color: white;
+    }
+
+    .btn-confirm {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .btn:hover {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+    
+    /* RESPONSIVE MEDIA QUERIES — adjust margin instead of top */
+    @media(max-width:900px){
+        .Middle {
+            margin-left: 200px;
+            margin-top: 130vh;
+        }
+    }
+    @media(max-width:800px){
+        .Middle {
+            margin-left: 220px;
+            margin-top: 180vh;
+        }
+    }
+    @media(max-width:700px){
+        .Middle {
+            margin-left: 230px;
+            margin-top: 200vh;
+        }
+    }
+    @media(max-width:500px){
+        .Middle {
+            margin-left: 250px;
+            margin-top: 250vh;
+        }
+    }
+    
+        </style>
+    </head>
+    <body>
+        <div class = "Background-Vid">
+            <video autoplay muted loop class = "Back_G-Vid">
+                <source src = "../resources/Background_VID.mp4" type = "video/mp4">
+            </video>
+    
+            <div class = "rectangle">
+                    <h1 class = "CDM"> <b> COLEGIO DE MUNTINLUPA </b> </h1>
+                    <h1 class = "CDM1"> <b>INTERACTIVE MAP </b></h1>
+            </div>
         </div>
-    </div>
- 
-    <div class="SideNav">
-        <img class="CDMLogo" src="../resources/CDM-Logo.png" alt="CDM Logo">
-        <h1 class="CdM">COLEGIO DE MUNTINLUPA</h1>
-        <h3 class="AdminPort">ADMIN PORTAL</h3>
-        <h4 class="MainMenu">Main Menu</h4>  
-        <a href="../Views/middle.php" class="Dash">Dashboard</a>
-        <a href="#MyAccount" class="Acc">My Account</a>
-    </div>
- 
-    <div class="Middle">
-    <!-- Middle Image -->
-    <div class="Middle_Container">
-        <img src="../resources/Middle_Pic.png" class="Middle_Pic" alt="Middle Image">
-        <div class="OverlayM"></div>
-        <h1 class = "MidTextUpper"> Colegio De Muntinlupa Buildings </h1>
-        <h4 class = "MidTextLower"> A state-of-the-art facility designed to support diverse academic and administrative needs </h4>
-        <a href = "../Views/Interactive_Map.php">
-            <button class = "ReadM_Stud"> View More </button>
-        </a>   
-    </div>
- 
-    <!-- Left & Right Images -->
-    <div class="Lower_Images">
-        <div class="Left_Container">
-            <img src="../resources/Left_Pic.jpg" class="Left_Pic" alt="Left Image">
-            <div class="OverlayL"></div>
-            <h1 class = "LeftTextUpper"> Enrolled Students per Program </h1>
-            <h4 class = "LeftTextLower"> Comprehensive tracking of student enrollment across all academic programs </h4>
-            <a href = "../Views/student_info.php">
-             <button class = "ReadM_Stud"> View More </button>
+    
+        <div class="SideNav">
+            <img class="CDMLogo" src="../resources/CDM-Logo.png" alt="CDM Logo">
+            <h1 class="CdM">COLEGIO DE MUNTINLUPA</h1>
+            <h3 class="AdminPort">ADMIN PORTAL</h3>
+            <h4 class="MainMenu">Main Menu</h4>  
+            <a href="../Views/middle.php" class="Dash">Dashboard</a>
+            <a href="#MyAccount" class="Acc">My Account</a>
+            <a href="#" class="Acc" id="logoutBtn">Log Out</a>
+        </div>
+    
+        <div class="Middle">
+        <!-- Middle Image -->
+        <div class="Middle_Container">
+            <img src="../resources/Middle_Pic.png" class="Middle_Pic" alt="Middle Image">
+            <div class="OverlayM"></div>
+            <h1 class = "MidTextUpper"> Colegio De Muntinlupa Buildings </h1>
+            <h4 class = "MidTextLower"> A state-of-the-art facility designed to support diverse academic and administrative needs </h4>
+            <a href = "../Views/Interactive_Map.php">
+                <button class = "ReadM_Stud"> View More </button>
+            </a>   
+        </div>
+    
+        <!-- Left & Right Images -->
+        <div class="Lower_Images">
+            <div class="Left_Container">
+                <img src="../resources/Left_Pic.jpg" class="Left_Pic" alt="Left Image">
+                <div class="OverlayL"></div>
+                <h1 class = "LeftTextUpper"> Enrolled Students per Program </h1>
+                <h4 class = "LeftTextLower"> Comprehensive tracking of student enrollment across all academic programs </h4>
+                <a href = "../Views/student_info.php">
+                <button class = "ReadM_Stud"> View More </button>
             </a>
         </div>
  
@@ -398,3 +499,55 @@
         </div>
     </div>
 </div>
+
+<!-- Logout Confirmation Modal -->
+<div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Confirm Logout</h2>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to log out completely?</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-cancel" id="cancelLogout">Cancel</button>
+            <button class="btn btn-confirm" id="confirmLogout">Logout</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Get the modal
+    const logoutModal = document.getElementById("logoutModal");
+    
+    // Get the button that opens the modal
+    const logoutBtn = document.getElementById("logoutBtn");
+    
+    // Get the buttons that handle modal actions
+    const cancelLogout = document.getElementById("cancelLogout");
+    const confirmLogout = document.getElementById("confirmLogout");
+    
+    // When the user clicks on the logout button, open the modal
+    logoutBtn.onclick = function() {
+        logoutModal.style.display = "block";
+    }
+    
+    // When the user clicks on Cancel, close the modal
+    cancelLogout.onclick = function() {
+        logoutModal.style.display = "none";
+    }
+    
+    // When the user clicks on Confirm, proceed with logout
+    confirmLogout.onclick = function() {
+        window.location.href = "User_Log.php"; // Redirect to logout page
+    }
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == logoutModal) {
+            logoutModal.style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>

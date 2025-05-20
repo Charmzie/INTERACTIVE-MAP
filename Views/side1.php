@@ -1,5 +1,17 @@
 
     <style>
+        @font-face {
+            font-family: Arial-Rounded-Mt-Bold;
+            src: url(resources/fonts/arialroundedmtbold.ttf);
+        }
+        @font-face {
+            font-family: Poppins-Bold;
+            src: url(resources/fonts/Poppins-Bold.ttf);
+        }
+        @font-face {
+            font-family: Poppins-Regular;
+            src: url(resources/fonts/Poppins-Regular.ttf);
+        }
         body {
             margin: 0;
             width: 100vw;
@@ -9,22 +21,12 @@
             background-color: #f4f4f4;
         }
 
-        .UpNav {
-            position: fixed;
-            width: 100vw;
-            height: 10vh;
-            background-color: rgba(4, 30, 39, 1);
-            top: 0;
-            left: 0;
-            z-index: 1000;
-        }
-
         .SideNav {
             position: fixed;
             width: 15vw;
             height: 100vh;
             background-color: rgba(4, 30, 39, 1);
-            top: 10vh; /* Below navbar */
+
             left: 0;
             display: flex;
             flex-direction: column;
@@ -44,23 +46,27 @@
         }
 
         .CdM {
-            font-size: 18px;
+            font-size: 25px;
             font-weight: bold;
             margin: 10px 0;
+            font-family: Arial-Rounded-Mt-Bold, Arial;
+            letter-spacing: 2px;
         }
-
+ 
         .AdminPort {
             font-size: 15px;
             font-weight: 500;
             margin-bottom: 10px;
+            font-family: Poppins-Bold, Arial;
         }
-
+ 
         .MainMenu {
             font-size: 15px;
             font-weight: 500;
             margin-top: 20px;
+            font-family: Poppins-Bold, Arial;
         }
-
+ 
         /* Navigation Links */
         .Dash, .Acc {
             display: block;
@@ -74,8 +80,9 @@
             text-align: center;
             border-radius: 5px;
             transition: 0.3s;
+            font-family: Poppins-Bold, Arial;
         }
-
+ 
         .Dash:hover, .Acc:hover {
             background-color: blue;
             color: white;

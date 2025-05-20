@@ -1,3 +1,7 @@
+<head>
+<title>Student's Information</title>
+<link rel="icon" type="image/x-icon" href="../resources/CDM-Logo.png">
+
 <style>
     html, body {
     position:fixed;

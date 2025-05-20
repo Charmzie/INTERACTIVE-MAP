@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Babylon.js Building Buttons</title>
+    <title>Colegio De Muntinlupa Buildings-3D Model</title>
     <script src="https://cdn.babylonjs.com/babylon.js"></script>
     <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
     <script src="https://cdn.babylonjs.com/gui/babylon.gui.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="../resources/CDM-Logo.png">
     <style>
         html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }
         canvas { width: 100%; height: 100%; display: block; }
